@@ -1,0 +1,29 @@
+name: flutter_application_2
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material_ui: ^1.1.0
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1 # مكتبة توليد أيقونات التطبيق
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_icon_192x192.png" # مسار الصورة التي وضعتها
+
+flutter:
+  uses-material-design: true
