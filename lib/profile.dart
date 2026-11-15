@@ -75,9 +75,9 @@ class profile extends StatelessWidget {
 
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                  50.0,
+                  40.0,
                   11.0,
-                  50.0,
+                  40.0,
                   20.0,
                 ), // إضافة مسافة من الجانبين والأعلى والأسفل
                 child: Text(
@@ -114,16 +114,14 @@ class profile extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-
               Padding(
                 padding: EdgeInsets.only(
-                  top: 20.0,
-                  left: 50.0,
-                  right: 50.0,
-                  bottom: 20.0,
-                ), // إضافة مسافة من الأعلى واليمين واليسار
-
-                child: Row(
+                  top: 18.0,
+                  left: 40.0,
+                  right: 40.0,
+                  bottom: 12.0,
+                ), 
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
@@ -196,82 +194,428 @@ class profile extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 1.0,
-                  bottom: 0.0,
-                  right: 0.0,
-                  left: 0.0,
-                ), // إضافة مسافة من الأعلى
 
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.network(
-                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500',
-                      width:
-                          MediaQuery.of(context).size.width *
-                          0.33, // ✅ تحديد العرض
-                      height:
-                          MediaQuery.of(context).size.width *
-                          0.33 *
-                          1.6, // ✅ تحديد الارتفاع
-                      fit: BoxFit.cover,
-                    ),
-                    Image.network(
-                      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600',
-                      width:
-                          MediaQuery.of(context).size.width *
-                          0.33, // ✅ تحديد العرض
-                      height:
-                          MediaQuery.of(context).size.width *
-                          0.33 *
-                          1.6, // ✅ تحديد الارتفاع
-                      fit: BoxFit.cover,
-                    ),
-                    Image.network(
-                      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600',
-                      width:
-                          MediaQuery.of(context).size.width *
-                          0.33, // ✅ تحديد العرض
-                      height:
-                          MediaQuery.of(context).size.width *
-                          0.33 *
-                          1.6, // ✅ تحديد الارتفاع
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+              
+
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.white,
+                  surfaceTintColor: Colors
+                      .transparent, // يمنع تلوين البطاقة بالصبغة التلقائية
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  margin: EdgeInsets.only(
+                    left: 0.0,
+                    right: 0.0,
+                    top: 0.0,
+                    bottom: 2.0,
+                  ),
+                  elevation: 2.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                             IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  220,
+                                  229,
+                                  242,
+                                ),
+                              ),
+                              iconSize: 33.0,
+                              icon: const Icon(Icons.person),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                            
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 8.0 ,left: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Alex Morgan', // اسم مستخدم جديد
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '1 day ago', // وقت المنشور
+                                    style: TextStyle(
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 63, 127, 218),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                             Spacer(),
+                            IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                              ),
+                              iconSize: 26.0,
+                              icon: const Icon(Icons.more_vert),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Text(
+                          'Coffee and coding: the perfect morning combo! ☕💻 What are you building today?', // وصف برمجة وقهوة
+                          style: TextStyle(fontSize: 14.0),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Image.network(
+                        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800', // صورة لابتوب وقهوة وبرمجة
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 3.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '512', // عدد إعجابات مختلف
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.thumb_up,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '42', // عدد تعليقات مختلف
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.comment,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                              label: const Text(
+                                '',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 1.0,
-                  bottom: 0.0,
-                  right: 0.0,
-                  left: 0.0,
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.white,
+                  surfaceTintColor: Colors.transparent,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  margin: const EdgeInsets.only(
+                    left: 0.0,
+                    right: 0.0,
+                    top: 0.0,
+                    bottom: 2.0,
+                  ),
+                  elevation: 2.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                             IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  220,
+                                  229,
+                                  242,
+                                ),
+                              ),
+                              iconSize: 33.0,
+                              icon: const Icon(Icons.person),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                            
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 8.0 ,left: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Alex Morgan', // اسم مستخدم جديد
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '1 day ago', // وقت المنشور
+                                    style: TextStyle(
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 63, 127, 218),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                             Spacer(),
+                            IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                              ),
+                              iconSize: 26.0,
+                              icon: const Icon(Icons.more_vert),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Text(
+                          'Late night study session at the campus library 📚 Finals week is approaching, stay focused everyone! 💪',
+                          style: TextStyle(fontSize: 14.0),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Image.network(
+                        'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800', // مكتبة جامعية وكتب
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 3.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '380',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.thumb_up,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '24',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.comment,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                              label: const Text(
+                                '',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // الصورة الأولى (طبيعة وشاطئ)
-                    Image.network(
-                      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
-                      width: MediaQuery.of(context).size.width * 0.33,
-                      height:
-                          MediaQuery.of(context).size.width *
-                          0.33 *
-                          1.6, // ارتفاع متناسق وجذاب
-                      fit: BoxFit.cover,
-                    ),
-
-                    // الصورة الثانية (لابتوب وقهوة وبرمجة)
-                    Image.network(
-                      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800',
-                      width: MediaQuery.of(context).size.width * 0.33,
-                      height: MediaQuery.of(context).size.width * 0.33 * 1.6,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.white,
+                  surfaceTintColor: Colors.transparent,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  margin: const EdgeInsets.only(
+                    left: 0.0,
+                    right: 0.0,
+                    top: 0.0,
+                    bottom: 2.0,
+                  ),
+                  elevation: 2.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                     Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                             IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  220,
+                                  229,
+                                  242,
+                                ),
+                              ),
+                              iconSize: 33.0,
+                              icon: const Icon(Icons.person),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                            
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 8.0 ,left: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Alex Morgan', // اسم مستخدم جديد
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '1 day ago', // وقت المنشور
+                                    style: TextStyle(
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 63, 127, 218),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                             Spacer(),
+                            IconButton(
+                              style: IconButton.styleFrom(
+                                shape: const CircleBorder(),
+                              ),
+                              iconSize: 26.0,
+                              icon: const Icon(Icons.more_vert),
+                              color: const Color.fromARGB(255, 63, 127, 218),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                       const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Text(
+                          'Just wrapped up the annual University Hackathon! Proud of our team for building an AI campus assistant 🥈💻',
+                          style: TextStyle(fontSize: 14.0),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Image.network(
+                        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800', // فريق طلاب وتطوير برمجيات
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 3.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '620',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.thumb_up,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              label: const Text(
+                                '48',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(
+                                Icons.comment,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                size: 23.0,
+                                color: Color.fromARGB(255, 63, 127, 218),
+                              ),
+                              label: const Text(
+                                '',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
