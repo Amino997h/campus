@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.navy),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         title: TextField(
@@ -55,10 +55,10 @@ class _SearchScreenState extends State<SearchScreen> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
             hintText: 'Type to search students or posts...',
             hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-            prefixIcon: const Icon(Icons.search, color: AppColors.primary, size: 20),
+            prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary, size: 20),
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
-                    icon: const Icon(Icons.clear, size: 18, color: AppColors.textMuted),
+                    icon: const Icon(Icons.close_rounded, size: 18, color: AppColors.textMuted),
                     onPressed: () {
                       setState(() {
                         _searchController.clear();
@@ -194,8 +194,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   color: AppColors.textMuted,
                                 ),
                               ),
-                              trailing: const Icon(Icons.arrow_forward_ios,
-                                  size: 13, color: AppColors.textMuted),
+                              trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                                  size: 14, color: AppColors.textMuted),
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -279,8 +279,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   color: AppColors.textMuted,
                                 ),
                               ),
-                              trailing: const Icon(Icons.arrow_forward_ios,
-                                  size: 13, color: AppColors.textMuted),
+                              trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                                  size: 14, color: AppColors.textMuted),
                               onTap: () {
                                 Navigator.push(
                                   context,

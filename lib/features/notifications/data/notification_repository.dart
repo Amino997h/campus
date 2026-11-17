@@ -72,4 +72,26 @@ class NotificationRepository {
           .update({'unread': false});
     } catch (_) {}
   }
+
+  // تعليم جميع إشعارات المستخدم كمقروءة دفعة واحدة (Batch Write) بأمان
+  Future<void> markAllNotificationsAsRead(String uid) async {
+    if (uid.isEmpty || uid == 'guest' || uid == 'guest_user') return;
+
+    try {
+      final unreadDocs = await _firestore
+          .collection('notifications')
+          .where('targetUid', isEqualTo: uid)
+          .where('unread', isEqualTo: true)
+          .get();
+
+      if (unreadDocs.docs.isEmpty) return;
+
+      // استخدام WriteBatch لضمان تحديث كل الإشعارات دفعة واحدة ذرية وسريعة
+      final batch = _firestore.batch();
+      for (final doc in unreadDocs.docs) {
+        batch.update(doc.reference, {'unread': false});
+      }
+      await batch.commit();
+    } catch (_) {}
+  }
 }

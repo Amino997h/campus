@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../data/profile_repository.dart';
+import 'followers_count_widget.dart';
 
 class ProfileStatsRow extends StatelessWidget {
+  final GlobalKey<FollowersCountWidgetState>? followersKey;
   final String uid;
   final int postsCount;
-  final int followersCount;
+  final int initialFollowersCount;
   final ProfileRepository profileRepo;
 
   const ProfileStatsRow({
     super.key,
+    this.followersKey,
     required this.uid,
     required this.postsCount,
-    required this.followersCount,
+    required this.initialFollowersCount,
     required this.profileRepo,
   });
 
@@ -54,66 +57,47 @@ class ProfileStatsRow extends StatelessWidget {
             width: 1.0,
             color: AppColors.borderLight,
           ),
-          // Followers Count
-          Column(
-            children: [
-              const Text(
-                'Followers',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: AppColors.textMuted,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                '$followersCount',
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textDark,
-                ),
-              ),
-            ],
+
+          // Followers Count (عنصر معزول يتغير دون إعادة رسم الشاشة)
+          FollowersCountWidget(
+            key: followersKey,
+            initialCount: initialFollowersCount,
           ),
+
           Container(
             height: 25.0,
             width: 1.0,
             color: AppColors.borderLight,
           ),
-          // Campus Karma Points
-          StreamBuilder<int>(
-            stream: profileRepo.getUserPointsStream(uid),
-            builder: (context, pointsSnap) {
-              final points = pointsSnap.data ?? 0;
-              return Column(
+
+          // Campus Karma Points (محسوبة مسبقاً بناءً على المنشورات دون Stream نشط يهز الشاشة)
+          Column(
+            children: [
+              const Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.stars_rounded, size: 14, color: AppColors.primary),
-                      SizedBox(width: 3),
-                      Text(
-                        'Points',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: AppColors.textMuted,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 2),
+                  Icon(Icons.stars_rounded, size: 14, color: AppColors.primary),
+                  SizedBox(width: 3),
                   Text(
-                    '$points',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
+                    'Points',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: AppColors.textMuted,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
-              );
-            },
+              ),
+              const SizedBox(height: 2),
+              Text(
+                '${postsCount * 3}',
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -109,7 +109,7 @@ class LikeButtonWidgetState extends State<LikeButtonWidget> with SingleTickerPro
       borderRadius: BorderRadius.circular(20),
       onTap: _handleTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

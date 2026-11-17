@@ -8,6 +8,7 @@ import '../../models/post_model.dart';
 import '../../models/comment_model.dart';
 import '../../data/post_repository.dart';
 import '../widgets/post_project_badge_widget.dart';
+import '../widgets/modern_comment_item_widget.dart';
 
 class PostDetailsScreen extends StatefulWidget {
   final PostModel? post;
@@ -72,6 +73,58 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
       _replyToCommentId = null;
       _replyToAuthorName = null;
     });
+  }
+
+  /// خوارزمية ترتيب وتنظيم التعليقات والردود هرمياً (Threaded Hierarchy):
+  /// تضمن وضع كل رد مباشرة تحت التعليق المستهدف أو سلسلة المحادثة الخاصة به
+  List<CommentModel> _organizeThreadedComments(List<CommentModel> rawComments) {
+    if (rawComments.isEmpty) return [];
+
+    final commentMap = <String, CommentModel>{};
+    for (final c in rawComments) {
+      if (c.id.isNotEmpty) {
+        commentMap[c.id] = c;
+      }
+    }
+
+    // التعليقات الجذرية (ليست رداً على أي شيء)
+    final rootComments = <CommentModel>[];
+    // خريطة الردود المباشرة لكل تعليق
+    final directReplies = <String, List<CommentModel>>{};
+
+    for (final c in rawComments) {
+      final parentId = c.replyToCommentId;
+      if (parentId != null && parentId.isNotEmpty && commentMap.containsKey(parentId)) {
+        directReplies.putIfAbsent(parentId, () => []).add(c);
+      } else {
+        rootComments.add(c);
+      }
+    }
+
+    // تجميع هرمي عميق (Depth-First) للحفاظ على تسلسل الردود تحت أصحابها
+    final result = <CommentModel>[];
+    void collectThread(CommentModel node) {
+      result.add(node);
+      final children = directReplies[node.id];
+      if (children != null && children.isNotEmpty) {
+        for (final child in children) {
+          collectThread(child);
+        }
+      }
+    }
+
+    for (final root in rootComments) {
+      collectThread(root);
+    }
+
+    // في حال وجود تعليق كان مرسلاً كرد على تعليق محذوف، يضاف في النهاية لضمان عدم ضياعه
+    for (final c in rawComments) {
+      if (!result.contains(c)) {
+        result.add(c);
+      }
+    }
+
+    return result;
   }
 
   void _addComment() {
@@ -269,157 +322,39 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                           );
                         }
 
-                        return ListView.builder(
+                        // تنظيم وترتيب التعليقات هرمياً (Threaded Hierarchy):
+                        // التعليق الأب يتبعه جميع الردود المتسلسلة التابعة له زمنياً
+                        final orderedComments = _organizeThreadedComments(comments);
+
+                        return ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: comments.length,
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          itemCount: orderedComments.length,
+                          separatorBuilder: (context, index) {
+                            final nextComment = orderedComments[index + 1 < orderedComments.length ? index + 1 : index];
+                            return Divider(
+                              height: 1.0,
+                              thickness: 0.6,
+                              indent: nextComment.isReply ? 76.0 : 64.0,
+                              endIndent: 16.0,
+                              color: AppColors.borderLight,
+                            );
+                          },
                           itemBuilder: (context, index) {
-                            final comment = comments[index];
-                            final isReply = comment.isReply;
-
-                            return Container(
-                              margin: EdgeInsets.only(
-                                left: isReply ? 38.0 : 12.0,
-                                right: 12.0,
-                                top: 4.0,
-                                bottom: 6.0,
-                              ),
-                              padding: const EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                color: isReply ? const Color(0xFFF7F9FC) : const Color(0xFFFAFBFC),
-                                borderRadius: BorderRadius.circular(14.0),
-                                border: Border.all(
-                                  color: isReply ? AppColors.primaryLight : AppColors.borderLight,
-                                  width: 0.8,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      DynamicUserAvatar(
-                                        uid: comment.authorUid,
-                                        initialPhoto: comment.authorPhoto,
-                                        radius: 15.0,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              comment.authorName,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13.0,
-                                                color: AppColors.textDark,
-                                              ),
-                                            ),
-                                            if (isReply)
-                                              Text(
-                                                'replied to @${comment.replyToAuthorName}',
-                                                style: const TextStyle(
-                                                  fontSize: 10.5,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.primary,
-                                                ),
-                                              ),
-                                          ],
-                                        ),
-                                      ),
-                                      TextButton.icon(
-                                        style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                          minimumSize: Size.zero,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        ),
-                                        onPressed: () {
-                                          _initiateReply(
-                                            commentId: comment.id,
-                                            authorName: comment.authorName,
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.reply_rounded,
-                                          size: 15,
-                                          color: AppColors.primary,
-                                        ),
-                                        label: const Text(
-                                          'Reply',
-                                          style: TextStyle(
-                                            fontSize: 11.5,
-                                            color: AppColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 38.0),
-                                    child: Text(
-                                      comment.text,
-                                      style: const TextStyle(
-                                        fontSize: 13.0,
-                                        height: 1.3,
-                                        color: AppColors.textDark,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-
-                                  // زر الإعجاب بالتعليق التفاعلي
-                                  Builder(
-                                    builder: (context) {
-                                      final isCommentLiked = comment.isLikedBy(currentUid);
-                                      final commentLikesCount = comment.likesCount;
-
-                                      return Padding(
-                                        padding: const EdgeInsets.only(left: 32.0),
-                                        child: InkWell(
-                                          borderRadius: BorderRadius.circular(12),
-                                          onTap: () {
-                                            _postRepo.toggleCommentLike(
-                                              postId: effectivePostId,
-                                              commentId: comment.id,
-                                              likes: comment.likes,
-                                              commentAuthorUid: comment.authorUid,
-                                              commentText: comment.text,
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  isCommentLiked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                                  size: 15.0,
-                                                  color: isCommentLiked ? AppColors.primary : AppColors.textMuted,
-                                                ),
-                                                if (commentLikesCount > 0) ...[
-                                                  const SizedBox(width: 4),
-                                                  Text(
-                                                    '$commentLikesCount',
-                                                    style: TextStyle(
-                                                      fontSize: 11.0,
-                                                      fontWeight: isCommentLiked ? FontWeight.bold : FontWeight.normal,
-                                                      color: isCommentLiked ? AppColors.primary : AppColors.textMuted,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
+                            final comment = orderedComments[index];
+                            return ModernCommentItemWidget(
+                              key: ValueKey(comment.id),
+                              comment: comment,
+                              currentUid: currentUid,
+                              postId: effectivePostId,
+                              postRepo: _postRepo,
+                              onReplyTap: () {
+                                _initiateReply(
+                                  commentId: comment.id,
+                                  authorName: comment.authorName,
+                                );
+                              },
                             );
                           },
                         );

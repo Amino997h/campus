@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
-import 'post_image_widget.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? photoUrl;
@@ -16,6 +16,46 @@ class UserAvatar extends StatelessWidget {
     this.onTap,
   });
 
+  Widget _buildAvatarImage(String url) {
+    if (url.startsWith('data:image')) {
+      try {
+        final base64String = url.split(',').last;
+        final bytes = base64Decode(base64String);
+        return Image.memory(
+          bytes,
+          width: radius * 2,
+          height: radius * 2,
+          fit: BoxFit.cover,
+          gaplessPlayback: true,
+          errorBuilder: (context, error, stackTrace) => Icon(
+            defaultIcon,
+            size: radius * 1.15,
+            color: AppColors.navy,
+          ),
+        );
+      } catch (_) {
+        return Icon(
+          defaultIcon,
+          size: radius * 1.15,
+          color: AppColors.navy,
+        );
+      }
+    }
+
+    return Image.network(
+      url,
+      width: radius * 2,
+      height: radius * 2,
+      fit: BoxFit.cover,
+      gaplessPlayback: true,
+      errorBuilder: (context, error, stackTrace) => Icon(
+        defaultIcon,
+        size: radius * 1.15,
+        color: AppColors.navy,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget avatarWidget;
@@ -28,7 +68,7 @@ class UserAvatar extends StatelessWidget {
           child: SizedBox(
             width: radius * 2,
             height: radius * 2,
-            child: PostImageWidget(imageSource: photoUrl!),
+            child: _buildAvatarImage(photoUrl!),
           ),
         ),
       );

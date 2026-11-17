@@ -58,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.navy),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -103,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
-              child: Icon(Icons.person, size: 18, color: AppColors.navy),
+              child: Icon(Icons.person_outline_rounded, size: 20, color: AppColors.navy),
             ),
             title: Text(
               currentUser?.displayName ?? 'Campus Student',
@@ -118,10 +118,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
-              child: Icon(Icons.edit, size: 18, color: AppColors.navy),
+              child: Icon(Icons.edit_rounded, size: 20, color: AppColors.navy),
             ),
             title: const Text('Edit Profile', style: TextStyle(color: AppColors.textDark)),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.textMuted),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
             onTap: () {
               Navigator.push(context, SlidePageTransition(page: const EditProfileScreen()));
             },
@@ -214,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
-              child: Icon(Icons.logout, size: 18, color: AppColors.primary),
+              child: Icon(Icons.logout_rounded, size: 20, color: AppColors.primary),
             ),
             title: const Text('Log Out', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
             onTap: () async {

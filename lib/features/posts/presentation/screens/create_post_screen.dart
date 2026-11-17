@@ -298,7 +298,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             child: CircleAvatar(
                               radius: 14,
                               backgroundColor: Colors.black.withValues(alpha: 0.6),
-                              child: const Icon(Icons.close, size: 16, color: Colors.white),
+                              child: const Icon(Icons.close_rounded, size: 16, color: Colors.white),
                             ),
                           ),
                         ),

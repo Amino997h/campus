@@ -113,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.navy),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -182,7 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
                 hintText: 'e.g. Amine Bouzouada',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.person_outline, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.person_outline_rounded, color: AppColors.navy, size: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                   borderSide: const BorderSide(color: AppColors.borderLight),
@@ -254,7 +254,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: DropdownButton<String>(
                   value: _selectedMajor,
                   isExpanded: true,
-                  icon: const Icon(Icons.arrow_drop_down, color: AppColors.navy),
+                  icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.navy),
                   items: CampusMajors.list.map((String major) {
                     return DropdownMenuItem<String>(
                       value: major,
@@ -294,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
                 hintText: 'student@university.edu',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.email_outlined, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                   borderSide: const BorderSide(color: AppColors.borderLight),
@@ -329,10 +329,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
                 hintText: 'Create a password',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.lock_outline, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.navy, size: 20),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                     color: AppColors.textMuted,
                     size: 20,
                   ),
@@ -376,10 +376,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
                 hintText: 'Re-enter password',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.lock_reset, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.lock_reset_rounded, color: AppColors.navy, size: 20),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                    _obscureConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                     color: AppColors.textMuted,
                     size: 20,
                   ),

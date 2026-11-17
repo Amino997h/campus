@@ -141,7 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.navy),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -239,7 +239,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                 labelText: 'Full Name',
                 labelStyle: const TextStyle(color: AppColors.navy),
-                prefixIcon: const Icon(Icons.person_outline, color: AppColors.navy),
+                prefixIcon: const Icon(Icons.person_outline_rounded, color: AppColors.navy),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -255,7 +255,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                 labelText: 'Username',
                 labelStyle: const TextStyle(color: AppColors.navy),
-                prefixIcon: const Icon(Icons.alternate_email, color: AppColors.navy),
+                prefixIcon: const Icon(Icons.alternate_email_rounded, color: AppColors.navy),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -271,7 +271,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                 labelText: 'Major / Field of Study',
                 labelStyle: const TextStyle(color: AppColors.navy),
-                prefixIcon: const Icon(Icons.school_outlined, color: AppColors.navy),
+                prefixIcon: const Icon(Icons.school_rounded, color: AppColors.navy),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -303,7 +303,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelStyle: const TextStyle(color: AppColors.navy),
                 prefixIcon: const Padding(
                   padding: EdgeInsets.only(bottom: 45),
-                  child: Icon(Icons.info_outline, color: AppColors.navy),
+                  child: Icon(Icons.info_outline_rounded, color: AppColors.navy),
                 ),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                 focusedBorder: OutlineInputBorder(

@@ -92,7 +92,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                   children: [
                     IconButton(
                       iconSize: 26.0,
-                      icon: const Icon(Icons.notifications_active_outlined),
+                      icon: Icon(hasUnread ? Icons.notifications_active_rounded : Icons.notifications_outlined),
                       color: AppColors.navy,
                       onPressed: () {
                         _openDrawerWith(const NotificationsDrawer());
@@ -135,7 +135,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                   clipBehavior: Clip.none,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.forum_outlined),
+                      icon: Icon(hasUnread ? Icons.forum_rounded : Icons.forum_outlined),
                       iconSize: 24.0,
                       color: AppColors.navy,
                       onPressed: () {
@@ -232,7 +232,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                     child: Column(
                       children: [
                         Icon(
-                          Icons.forum_outlined,
+                          Icons.forum_rounded,
                           size: 50,
                           color: AppColors.textMuted.withValues(alpha: 0.5),
                         ),
@@ -336,7 +336,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
             SlidePageTransition(page: const CreatePostScreen()),
           );
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 28),
+        child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

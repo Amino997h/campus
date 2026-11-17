@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.navy),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
                 onPressed: () => Navigator.pop(context),
               )
             : null,
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 hintText: 'student@university.edu',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.email_outlined, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                   borderSide: const BorderSide(
@@ -179,10 +179,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 hintText: 'Enter your password',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.lock_outline, color: AppColors.navy, size: 20),
+                prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.navy, size: 20),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                     color: AppColors.textMuted,
                     size: 20,
                   ),

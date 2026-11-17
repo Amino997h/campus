@@ -35,6 +35,16 @@ class ProfileRepository {
     return UserModel.fromFirestore(doc);
   }
 
+  // جلب منشورات مستخدم معين كـ Future ثابت لمنع إعادة البناء اللحظية
+  Future<List<PostModel>> getUserPosts(String uid) async {
+    if (uid.isEmpty) return [];
+    final snapshot = await _firestore
+        .collection('posts')
+        .where('authorUid', isEqualTo: uid)
+        .get();
+    return snapshot.docs.map((doc) => PostModel.fromFirestore(doc)).toList();
+  }
+
   // جلب تدفق منشورات مستخدم معين
   Stream<List<PostModel>> getUserPostsStream(String uid) {
     return _firestore
@@ -143,6 +153,22 @@ class ProfileRepository {
       );
       return true;
     }
+  }
+
+  // جلب مشاريع مستخدم معين كـ Future ثابت
+  Future<List<ProjectModel>> getUserProjects(String uid) async {
+    if (uid.isEmpty) return [];
+    final snapshot = await _firestore
+        .collection('projects')
+        .where('uid', isEqualTo: uid)
+        .get();
+    final list = snapshot.docs.map((doc) => ProjectModel.fromFirestore(doc)).toList();
+    list.sort((a, b) {
+      final aTime = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final bTime = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return bTime.compareTo(aTime);
+    });
+    return list;
   }
 
   // جلب تدفق مشاريع مستخدم معين (مشاريع التخرج وروابط GitHub)

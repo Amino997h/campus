@@ -32,13 +32,13 @@ class PostActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 12.0,
-        vertical: 4.0,
+        horizontal: 4.0,
+        vertical: 2.0,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // زر اللايك الأصلي
+          // زر اللايك بمساحة نقر مريحة وواسعة
           LikeButtonWidget(
             key: likeKey,
             postId: postId,
@@ -49,31 +49,45 @@ class PostActionBar extends StatelessWidget {
             onToggle: onLikeToggle,
           ),
 
-          // زر التعليق الأصلي
-          TextButton.icon(
-            onPressed: onCommentTap,
-            label: Text(
-              '$commentsCount',
-              style: const TextStyle(color: AppColors.textDark, fontSize: 13.0),
-            ),
-            icon: const Icon(
-              Icons.chat_bubble_outline_rounded,
-              size: 21.0,
-              color: AppColors.navy,
+          // زر التعليق بمساحة نقر أوسع وأسهل للمس
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: onCommentTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.chat_bubble_outline_rounded,
+                    size: 21.0,
+                    color: AppColors.navy,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    '$commentsCount',
+                    style: const TextStyle(
+                      color: AppColors.textDark,
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
 
-          // زر المشاركة الأصلي
-          TextButton.icon(
-            onPressed: onShareTap,
-            icon: const Icon(
-              Icons.share_outlined,
-              size: 21.0,
-              color: AppColors.navy,
-            ),
-            label: const Text(
-              '',
-              style: TextStyle(color: AppColors.textDark),
+          // زر المشاركة بمساحة نقر أوسع للمس
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: onShareTap,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Icon(
+                Icons.share_rounded,
+                size: 21.0,
+                color: AppColors.navy,
+              ),
             ),
           ),
         ],
