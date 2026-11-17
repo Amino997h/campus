@@ -1,0 +1,28 @@
+class CampusMajors {
+  static const List<String> list = [
+    'Computer Science (CS)',
+    'Software Engineering (SE)',
+    'Information Technology (IT)',
+    'Artificial Intelligence (AI)',
+    'Cyber Security',
+    'Data Science',
+    'Computer Engineering',
+    'Electrical Engineering',
+    'Mechanical Engineering',
+    'Civil Engineering',
+    'Architecture',
+    'Medicine',
+    'Pharmacy',
+    'Dentistry',
+    'Business Administration',
+    'Finance & Accounting',
+    'Economics',
+    'Law',
+    'English Literature',
+    'Mathematics',
+    'Physics',
+    'Chemistry',
+    'Biology',
+    'Psychology',
+  ];
+}
