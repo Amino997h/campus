@@ -75,15 +75,15 @@ class _DynamicUserAvatarState extends State<DynamicUserAvatar> {
           return avatarWidget;
         }
 
-        final dotRadius = (widget.radius * 0.32).clamp(5.0, 8.5);
+        final dotRadius = (widget.radius * 0.28).clamp(4.5, 7.5);
 
         return Stack(
           clipBehavior: Clip.none,
           children: [
             avatarWidget,
             Positioned(
-              right: 0,
-              bottom: 0,
+              right: 1,
+              bottom: 1,
               child: Container(
                 width: dotRadius * 2,
                 height: dotRadius * 2,
@@ -94,13 +94,6 @@ class _DynamicUserAvatarState extends State<DynamicUserAvatar> {
                     color: Colors.white,
                     width: 2.0,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.4),
-                      blurRadius: 4,
-                      spreadRadius: 1,
-                    ),
-                  ],
                 ),
               ),
             ),

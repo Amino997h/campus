@@ -103,8 +103,8 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                         top: 10,
                         right: 10,
                         child: Container(
-                          width: 9.0,
-                          height: 9.0,
+                          width: 8.5,
+                          height: 8.5,
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             shape: BoxShape.circle,
@@ -112,13 +112,6 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                               color: Colors.white,
                               width: 1.5,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.5),
-                                blurRadius: 4,
-                                spreadRadius: 1,
-                              ),
-                            ],
                           ),
                         ),
                       ),
@@ -147,8 +140,8 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                         top: 10,
                         right: 10,
                         child: Container(
-                          width: 9.0,
-                          height: 9.0,
+                          width: 8.5,
+                          height: 8.5,
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             shape: BoxShape.circle,
@@ -156,13 +149,6 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                               color: Colors.white,
                               width: 1.5,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.5),
-                                blurRadius: 4,
-                                spreadRadius: 1,
-                              ),
-                            ],
                           ),
                         ),
                       ),
