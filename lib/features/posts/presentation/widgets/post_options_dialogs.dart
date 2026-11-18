@@ -26,7 +26,7 @@ class PostOptionsDialogs {
             children: [
               if (isOwner) ...[
                 ListTile(
-                  leading: const Icon(Icons.edit_outlined, color: AppColors.navy),
+                  leading: Icon(Icons.edit_outlined, color: AppColors.navy),
                   title: const Text(
                     'Edit Post Text',
                     style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.bold),
@@ -37,8 +37,8 @@ class PostOptionsDialogs {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.delete_outline_rounded, color: AppColors.primary),
-                  title: const Text(
+                  leading: Icon(Icons.delete_outline_rounded, color: AppColors.primary),
+                  title: Text(
                     'Delete Post',
                     style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
                   ),
@@ -54,7 +54,7 @@ class PostOptionsDialogs {
                 ),
               ] else ...[
                 ListTile(
-                  leading: const Icon(Icons.report_outlined, color: AppColors.navy),
+                  leading: Icon(Icons.report_outlined, color: AppColors.navy),
                   title: const Text('Report Post', style: TextStyle(color: AppColors.textDark)),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -83,7 +83,7 @@ class PostOptionsDialogs {
       context: context,
       builder: (dialogCtx) => AlertDialog(
         backgroundColor: Colors.white,
-        title: const Text(
+        title: Text(
           'Edit Post',
           style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold),
         ),
@@ -129,7 +129,7 @@ class PostOptionsDialogs {
       context: context,
       builder: (dialogCtx) => AlertDialog(
         backgroundColor: Colors.white,
-        title: const Text(
+        title: Text(
           'Delete Post',
           style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
         ),

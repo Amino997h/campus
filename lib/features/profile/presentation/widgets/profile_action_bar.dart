@@ -83,7 +83,7 @@ class _ProfileActionBarState extends State<ProfileActionBar> {
     final currentUid = FirebaseAuth.instance.currentUser?.uid;
     if (currentUid == null || currentUid.isEmpty || currentUid == 'guest') {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('Please sign in to send direct messages.'),
           backgroundColor: AppColors.primary,
         ),
@@ -93,7 +93,7 @@ class _ProfileActionBarState extends State<ProfileActionBar> {
 
     if (currentUid == widget.uid) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('You cannot message yourself.'),
           backgroundColor: AppColors.primary,
         ),
@@ -197,7 +197,7 @@ class _ProfileActionBarState extends State<ProfileActionBar> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _isOpeningChat
-                      ? const SizedBox(
+                      ? SizedBox(
                           width: 14.0,
                           height: 14.0,
                           child: CircularProgressIndicator(
@@ -205,13 +205,13 @@ class _ProfileActionBarState extends State<ProfileActionBar> {
                             valueColor: AlwaysStoppedAnimation<Color>(AppColors.navy),
                           ),
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.chat_bubble_outline_rounded,
                           size: 16.0,
                           color: AppColors.navy,
                         ),
                   const SizedBox(width: 6.0),
-                  const Text(
+                  Text(
                     'Message',
                     style: TextStyle(
                       fontSize: 12.5,

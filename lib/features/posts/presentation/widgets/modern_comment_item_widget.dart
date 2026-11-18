@@ -56,7 +56,7 @@ class ModernCommentItemWidget extends StatelessWidget {
                   children: [
                     Text(
                       comment.authorName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13.5,
                         fontWeight: FontWeight.bold,
                         color: AppColors.navy,
@@ -80,7 +80,7 @@ class ModernCommentItemWidget extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.reply_rounded,
                         size: 13.0,
                         color: AppColors.primary,
@@ -88,7 +88,7 @@ class ModernCommentItemWidget extends StatelessWidget {
                       const SizedBox(width: 3.0),
                       Text(
                         'رد على @${comment.replyToAuthorName}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 11.0,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,

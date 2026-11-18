@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         title: TextField(
@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
             hintText: 'Type to search students or posts...',
             hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-            prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary, size: 20),
+            prefixIcon: Icon(Icons.search_rounded, color: AppColors.primary, size: 20),
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
                     icon: const Icon(Icons.close_rounded, size: 18, color: AppColors.textMuted),

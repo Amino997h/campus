@@ -70,34 +70,40 @@ class ProfileStatsRow extends StatelessWidget {
             color: AppColors.borderLight,
           ),
 
-          // Campus Karma Points (محسوبة مسبقاً بناءً على المنشورات دون Stream نشط يهز الشاشة)
-          Column(
-            children: [
-              const Row(
-                mainAxisSize: MainAxisSize.min,
+          // Campus Karma Points (محسوبة ديناميكياً بدقة عبر النظام الذكي المتوازن)
+          StreamBuilder<int>(
+            stream: profileRepo.getUserPointsStream(uid),
+            builder: (context, snapshot) {
+              final points = snapshot.data ?? 0;
+              return Column(
                 children: [
-                  Icon(Icons.stars_rounded, size: 14, color: AppColors.primary),
-                  SizedBox(width: 3),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.stars_rounded, size: 14, color: AppColors.primary),
+                      SizedBox(width: 3),
+                      Text(
+                        'Points',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: AppColors.textMuted,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 2),
                   Text(
-                    'Points',
+                    '$points',
                     style: TextStyle(
-                      fontSize: 12.0,
-                      color: AppColors.textMuted,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(height: 2),
-              Text(
-                '${postsCount * 3}',
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),

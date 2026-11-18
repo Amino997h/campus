@@ -30,7 +30,7 @@ class ChatInputField extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              icon: const Icon(Icons.add_photo_alternate_rounded, color: AppColors.navy),
+              icon: Icon(Icons.add_photo_alternate_rounded, color: AppColors.navy),
               onPressed: onPickImage,
             ),
             Expanded(
@@ -52,7 +52,7 @@ class ChatInputField extends StatelessWidget {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: AppColors.primary,
                     ),
                   ),
@@ -62,7 +62,7 @@ class ChatInputField extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             IconButton(
-              icon: const Icon(Icons.send_rounded, color: AppColors.primary),
+              icon: Icon(Icons.send_rounded, color: AppColors.primary),
               onPressed: onSendMessage,
             ),
           ],

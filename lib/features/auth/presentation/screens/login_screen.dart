@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+                icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
                 onPressed: () => Navigator.pop(context),
               )
             : null,
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 hintText: 'student@university.edu',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
+                prefixIcon: Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                   borderSide: const BorderSide(
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     color: AppColors.primary,
                     width: 1.5,
                   ),
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 hintText: 'Enter your password',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.navy, size: 20),
+                prefixIcon: Icon(Icons.lock_outline_rounded, color: AppColors.navy, size: 20),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
@@ -206,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     color: AppColors.primary,
                     width: 1.5,
                   ),
@@ -224,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SlidePageTransition(page: const ForgotPasswordScreen()),
                   );
                 },
-                child: const Text(
+                child: Text(
                   'Forgot Password?',
                   style: TextStyle(
                     color: AppColors.primary,
@@ -282,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SlidePageTransition(page: const SignUpScreen()),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     'Sign Up',
                     style: TextStyle(
                       fontSize: 13.0,

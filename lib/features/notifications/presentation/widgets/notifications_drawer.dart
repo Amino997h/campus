@@ -27,7 +27,7 @@ class NotificationsDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.notifications_active_rounded,
                     color: AppColors.primary,
                     size: 24,
@@ -90,14 +90,14 @@ class NotificationsDrawer extends StatelessWidget {
                               child: Text(
                                 'Error loading notifications: ${snapshot.error}',
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(color: AppColors.primary, fontSize: 12),
+                                style: TextStyle(color: AppColors.primary, fontSize: 12),
                               ),
                             ),
                           );
                         }
 
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(
+                          return Center(
                               child: CircularProgressIndicator(color: AppColors.primary));
                         }
 

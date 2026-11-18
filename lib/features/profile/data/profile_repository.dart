@@ -248,33 +248,132 @@ class ProfileRepository {
     }, SetOptions(merge: true));
   }
 
-  // حساب نقاط الكارما الجامعية (Campus Karma Points)
+  // حساب نقاط الكارما الجامعية بدقة وتوازن تام وفق القواعد المعتمدة
   Stream<int> getUserPointsStream(String uid) {
-    return _firestore
-        .collection('posts')
-        .where('authorUid', isEqualTo: uid)
-        .snapshots()
-        .map((snapshot) {
-      int totalPoints = 0;
-      // كل منشور = 3 نقاط
-      totalPoints += snapshot.docs.length * 3;
+    if (uid.isEmpty) return Stream.value(0);
 
-      int totalLikes = 0;
-      int totalComments = 0;
-      for (var doc in snapshot.docs) {
-        final data = doc.data();
-        final likes = (data['likes'] as List?)?.length ??
-            (data['likesCount'] as int? ?? 0);
-        final comments = data['commentsCount'] as int? ?? 0;
-        totalLikes += likes;
-        totalComments += comments;
+    // ندمج تدفق بيانات المستخدم (للمتابعين والتوثيق والسيرة) مع تدفق المنشورات (للمشاريع واللايكات)
+    return _firestore.collection('users').doc(uid).snapshots().asyncMap((userDoc) async {
+      int totalPoints = 0;
+      final userData = userDoc.data() ?? {};
+
+      // 1. نقاط الموثوقية والتحقق (Trust Levels)
+      final level = (userData['verificationLevel'] as num?)?.toInt() ?? 1;
+      if (level == 2) {
+        totalPoints += 15; // توثيق بريد جامعي
+      } else if (level >= 3) {
+        totalPoints += 30; // توثيق رسمي بوثيقة سنوية أو أستاذ
       }
-      // كل 10 لايكات = نقطة
-      totalPoints += (totalLikes ~/ 10);
-      // كل تعليق = نقطة
-      totalPoints += totalComments;
+
+      // 2. إظهار السيرة الذاتية للجميع (مشروطة بإظهارها showResume مع وجود محتوى)
+      final showResume = userData['showResume'] == true;
+      if (showResume) {
+        try {
+          final resumeDoc = await _firestore.collection('users').doc(uid).collection('resume').doc('data').get();
+          if (resumeDoc.exists) {
+            totalPoints += 10;
+          }
+        } catch (_) {}
+      }
+
+      // 3. شبكة المتابعين الحقيقيين (2 نقطة لكل متابع - تخصم فوراً عند إلغاء المتابعة)
+      final followers = (userData['followers'] as List?) ?? [];
+      totalPoints += (followers.length * 2);
+
+      // 4. النقاط الدائمة المكتسبة من ردود الآخرين على تعليقاتك (لا تخصم أبداً لو حذفوا ردهم)
+      final earnedReplies = (userData['earnedReplyPoints'] as num?)?.toInt() ?? 0;
+      totalPoints += earnedReplies;
+
+      // 5. نقاط المنشورات والمشاريع والتفاعل المباشر (تخصم تلقائياً إذا حذفت منشورك)
+      try {
+        final postsSnapshot = await _firestore
+            .collection('posts')
+            .where('authorUid', isEqualTo: uid)
+            .get();
+
+        int totalLikes = 0;
+        int totalComments = 0;
+
+        for (var doc in postsSnapshot.docs) {
+          final pData = doc.data();
+          // فحص هل المنشور يحمل مشروع GitHub مرجعي (+6 نقاط) أم منشور عادي (+1 نقطة)
+          final hasProject = (pData['projectTitle'] != null && (pData['projectTitle'] as String).isNotEmpty) ||
+              (pData['projectGithubUrl'] != null && (pData['projectGithubUrl'] as String).isNotEmpty);
+
+          if (hasProject) {
+            totalPoints += 6;
+          } else {
+            totalPoints += 1;
+          }
+
+          final likes = (pData['likes'] as List?)?.length ?? (pData['likesCount'] as int? ?? 0);
+          final comments = (pData['commentsCount'] as int? ?? 0);
+
+          totalLikes += likes;
+          totalComments += comments;
+        }
+
+        // كل تعليق تلقيته على منشورك = +1 نقطة
+        totalPoints += totalComments;
+
+        // كل 3 إعجابات = +1 نقطة (تخصم إذا أزالوا الإعجاب)
+        totalPoints += (totalLikes ~/ 3);
+      } catch (_) {}
 
       return totalPoints;
+    });
+  }
+
+  // تقديم طلب التحقق الأكاديمي أو تحديث الحالة
+  Future<void> submitVerificationRequest({
+    required String uid,
+    required int requestedLevel,
+    required String role, // 'student' or 'professor'
+    String academicEmail = '',
+    String documentBase64 = '',
+  }) async {
+    final batch = _firestore.batch();
+    final userRef = _firestore.collection('users').doc(uid);
+    final requestRef = _firestore.collection('verification_requests').doc(uid);
+
+    final isEmailOnly = requestedLevel == 2;
+
+    batch.set(
+      requestRef,
+      {
+        'uid': uid,
+        'requestedLevel': requestedLevel,
+        'role': role,
+        'academicEmail': academicEmail,
+        'documentUrl': documentBase64,
+        'status': isEmailOnly ? 'approved' : 'pending',
+        'submittedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+
+    batch.update(userRef, {
+      if (isEmailOnly) 'verificationLevel': 2,
+      'academicEmail': academicEmail,
+      if (documentBase64.isNotEmpty) 'verificationDocUrl': documentBase64,
+      'verificationStatus': isEmailOnly ? 'approved' : 'pending',
+      'verificationRole': role,
+    });
+
+    await batch.commit();
+  }
+
+  // الموافقة على التحقق فوراً (للتطبيق المباشر)
+  Future<void> approveVerification({
+    required String uid,
+    required int level,
+    required String role,
+  }) async {
+    await _firestore.collection('users').doc(uid).update({
+      'verificationLevel': level,
+      'verificationRole': role,
+      'verificationStatus': 'approved',
+      'verificationExpiry': DateTime.now().add(const Duration(days: 365)),
     });
   }
 }

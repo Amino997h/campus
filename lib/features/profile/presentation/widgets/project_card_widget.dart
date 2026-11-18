@@ -25,7 +25,7 @@ class ProjectCardWidget extends StatelessWidget {
       );
       if (!launched && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Could not open link. Please verify URL.'),
             backgroundColor: AppColors.primary,
           ),
@@ -39,7 +39,7 @@ class ProjectCardWidget extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Delete Project', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+        title: Text('Delete Project', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
         content: const Text('Are you sure you want to remove this project from your list?'),
         actions: [
           TextButton(
@@ -98,7 +98,7 @@ class ProjectCardWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: AppColors.borderLight, width: 0.8),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.code_rounded,
                         color: AppColors.navy,
                         size: 20.0,
@@ -111,7 +111,7 @@ class ProjectCardWidget extends StatelessWidget {
                         children: [
                           Text(
                             project.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14.5,
                               fontWeight: FontWeight.bold,
                               color: AppColors.navy,
@@ -176,7 +176,7 @@ class ProjectCardWidget extends StatelessWidget {
                         foregroundColor: AppColors.primary,
                       ),
                       onPressed: () => _launchUrl(context),
-                      icon: const Text(
+                      icon: Text(
                         'Open on GitHub',
                         style: TextStyle(
                           fontSize: 11.5,
@@ -184,7 +184,7 @@ class ProjectCardWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      label: const Icon(
+                      label: Icon(
                         Icons.arrow_outward_rounded,
                         size: 13.0,
                         color: AppColors.primary,

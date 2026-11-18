@@ -181,7 +181,7 @@ class ResumeViewWidget extends StatelessWidget {
                   child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.navy,
-                      side: const BorderSide(color: AppColors.navy, width: 1.2),
+                      side: BorderSide(color: AppColors.navy, width: 1.2),
                       backgroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
                       shape: RoundedRectangleBorder(
@@ -202,7 +202,7 @@ class ResumeViewWidget extends StatelessWidget {
                         }
                       }
                     },
-                    icon: const Icon(Icons.download_rounded, size: 19, color: AppColors.navy),
+                    icon: Icon(Icons.download_rounded, size: 19, color: AppColors.navy),
                     label: const Text(
                       'Save as PDF',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.5),

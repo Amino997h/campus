@@ -152,7 +152,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               onSurface: AppColors.navy,
@@ -187,7 +187,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               onSurface: AppColors.navy,
@@ -265,12 +265,12 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                           color: AppColors.primaryLight,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.work_rounded, color: AppColors.primary, size: 20),
+                        child: Icon(Icons.work_rounded, color: AppColors.primary, size: 20),
                       ),
                       const SizedBox(width: 10),
                       Text(
                         existing == null ? 'Add Work Experience' : 'Edit Work Experience',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.navy,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
@@ -348,7 +348,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Responsibilities & Achievements (Bullet Points)',
                     style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: AppColors.navy),
                   ),
@@ -397,7 +397,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Text('• ', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                            Text('• ', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
                             Expanded(child: Text(e.value, style: const TextStyle(fontSize: 12.0, color: AppColors.textDark))),
                             IconButton(
                               visualDensity: VisualDensity.compact,
@@ -491,12 +491,12 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                         color: AppColors.primaryLight,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.school_rounded, color: AppColors.primary, size: 20),
+                      child: Icon(Icons.school_rounded, color: AppColors.primary, size: 20),
                     ),
                     const SizedBox(width: 10),
                     Text(
                       existing == null ? 'Add Education' : 'Edit Education',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.navy,
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
@@ -608,10 +608,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                         color: AppColors.primaryLight,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.language_rounded, color: AppColors.primary, size: 20),
+                      child: Icon(Icons.language_rounded, color: AppColors.primary, size: 20),
                     ),
                     const SizedBox(width: 10),
-                    const Text(
+                    Text(
                       'Add Language',
                       style: TextStyle(
                         color: AppColors.navy,
@@ -700,7 +700,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
       if (mounted) {
         Navigator.pop(context, true);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('CV updated successfully 🎉'),
             backgroundColor: AppColors.navy,
             behavior: SnackBarBehavior.floating,
@@ -747,7 +747,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                   color: AppColors.navy,
@@ -770,11 +770,11 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
       filled: true,
       fillColor: AppColors.surface,
       contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
-      labelStyle: const TextStyle(fontSize: 13.0, color: AppColors.navy),
+      labelStyle: TextStyle(fontSize: 13.0, color: AppColors.navy),
       hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: AppColors.borderLight)),
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: AppColors.borderLight)),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: BorderSide(color: AppColors.primary, width: 1.5)),
     );
   }
 
@@ -786,10 +786,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Edit Full CV / Resume',
           style: TextStyle(
             color: AppColors.navy,
@@ -802,8 +802,8 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
           TextButton(
             onPressed: _isSaving ? null : _submitSave,
             child: _isSaving
-                ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary))
-                : const Text('Save', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 15.0)),
+                ? SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary))
+                : Text('Save', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 15.0)),
           ),
           const SizedBox(width: 8),
         ],
@@ -935,10 +935,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(exp.jobTitle, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.navy, fontSize: 14.0)),
+                                child: Text(exp.jobTitle, style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.navy, fontSize: 14.0)),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.navy),
+                                icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.navy),
                                 onPressed: () => _openExperienceDialog(existing: exp, index: idx),
                               ),
                               IconButton(
@@ -947,7 +947,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                               ),
                             ],
                           ),
-                          Text('${exp.company} • $dateText', style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 12.0)),
+                          Text('${exp.company} • $dateText', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 12.0)),
                           if (exp.responsibilities.isNotEmpty) ...[
                             const SizedBox(height: 6),
                             ...exp.responsibilities.map((r) => Padding(
@@ -955,7 +955,7 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text('• ', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+                                      Text('• ', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
                                       Expanded(child: Text(r, style: const TextStyle(fontSize: 12.0, color: AppColors.textDark))),
                                     ],
                                   ),
@@ -968,10 +968,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                 const SizedBox(height: 6),
                 OutlinedButton.icon(
                   onPressed: () => _openExperienceDialog(),
-                  icon: const Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
-                  label: const Text('Add Experience', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+                  icon: Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
+                  label: Text('Add Experience', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.primary),
+                    side: BorderSide(color: AppColors.primary),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
@@ -1006,13 +1006,13 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('${edu.degree} in ${edu.specialization}', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.navy, fontSize: 13.5)),
-                                Text('${edu.university} • Graduated: ${edu.graduationYear}', style: const TextStyle(color: AppColors.primary, fontSize: 12.0, fontWeight: FontWeight.w600)),
+                                Text('${edu.degree} in ${edu.specialization}', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.navy, fontSize: 13.5)),
+                                Text('${edu.university} • Graduated: ${edu.graduationYear}', style: TextStyle(color: AppColors.primary, fontSize: 12.0, fontWeight: FontWeight.w600)),
                               ],
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.navy),
+                            icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.navy),
                             onPressed: () => _openEducationDialog(existing: edu, index: idx),
                           ),
                           IconButton(
@@ -1026,10 +1026,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                 const SizedBox(height: 6),
                 OutlinedButton.icon(
                   onPressed: () => _openEducationDialog(),
-                  icon: const Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
-                  label: const Text('Add Education', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+                  icon: Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
+                  label: Text('Add Education', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.primary),
+                    side: BorderSide(color: AppColors.primary),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
@@ -1064,9 +1064,9 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                   runSpacing: 6.0,
                   children: _technicalSkills.map((s) {
                     return Chip(
-                      label: Text(s, style: const TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
+                      label: Text(s, style: TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
                       backgroundColor: AppColors.primaryLight,
-                      deleteIcon: const Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
+                      deleteIcon: Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
                       onDeleted: () => setState(() => _technicalSkills.remove(s)),
                       side: BorderSide(color: AppColors.primary.withValues(alpha: 0.2)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -1104,9 +1104,9 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                   runSpacing: 6.0,
                   children: _personalSkills.map((s) {
                     return Chip(
-                      label: Text(s, style: const TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
+                      label: Text(s, style: TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
                       backgroundColor: AppColors.surface,
-                      deleteIcon: const Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
+                      deleteIcon: Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
                       onDeleted: () => setState(() => _personalSkills.remove(s)),
                       side: const BorderSide(color: AppColors.borderLight),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -1132,9 +1132,9 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                     runSpacing: 8.0,
                     children: _languages.map((l) {
                       return Chip(
-                        label: Text('${l.language}: ${l.level}', style: const TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
+                        label: Text('${l.language}: ${l.level}', style: TextStyle(fontSize: 12.0, color: AppColors.navy, fontWeight: FontWeight.bold)),
                         backgroundColor: Colors.white,
-                        deleteIcon: const Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
+                        deleteIcon: Icon(Icons.close_rounded, size: 14.0, color: AppColors.primary),
                         onDeleted: () => setState(() => _languages.remove(l)),
                         side: BorderSide(color: AppColors.primary.withValues(alpha: 0.3)),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -1144,10 +1144,10 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                 const SizedBox(height: 8),
                 OutlinedButton.icon(
                   onPressed: _openLanguageDialog,
-                  icon: const Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
-                  label: const Text('Add Language', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+                  icon: Icon(Icons.add_rounded, size: 18, color: AppColors.primary),
+                  label: Text('Add Language', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.primary),
+                    side: BorderSide(color: AppColors.primary),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
@@ -1181,8 +1181,8 @@ class _EditResumeScreenState extends State<EditResumeScreen> {
                   return ListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    leading: const Icon(Icons.military_tech_rounded, color: AppColors.primary, size: 20),
-                    title: Text(c, style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: AppColors.navy)),
+                    leading: Icon(Icons.military_tech_rounded, color: AppColors.primary, size: 20),
+                    title: Text(c, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: AppColors.navy)),
                     trailing: IconButton(
                       icon: const Icon(Icons.close_rounded, size: 16, color: AppColors.textMuted),
                       onPressed: () => setState(() => _certificates.remove(c)),

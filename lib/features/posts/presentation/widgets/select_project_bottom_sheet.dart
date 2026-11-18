@@ -49,14 +49,14 @@ class SelectProjectBottomSheet extends StatelessWidget {
                     color: AppColors.primary.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.code_rounded,
                     color: AppColors.primary,
                     size: 22.0,
                   ),
                 ),
                 const SizedBox(width: 10.0),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Attach a Project Reference',
                     style: TextStyle(
@@ -77,8 +77,8 @@ class SelectProjectBottomSheet extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.add_rounded, size: 16, color: AppColors.primary),
-                  label: const Text(
+                  icon: Icon(Icons.add_rounded, size: 16, color: AppColors.primary),
+                  label: Text(
                     'New Project',
                     style: TextStyle(
                       color: AppColors.primary,
@@ -97,7 +97,7 @@ class SelectProjectBottomSheet extends StatelessWidget {
                   final projects = snapshot.data ?? [];
 
                   if (snapshot.connectionState == ConnectionState.waiting && projects.isEmpty) {
-                    return const Padding(
+                    return Padding(
                       padding: EdgeInsets.symmetric(vertical: 24.0),
                       child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
                     );
@@ -155,7 +155,7 @@ class SelectProjectBottomSheet extends StatelessWidget {
                             color: AppColors.navy.withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: const Icon(Icons.code_rounded, color: AppColors.navy, size: 20.0),
+                          child: Icon(Icons.code_rounded, color: AppColors.navy, size: 20.0),
                         ),
                         title: Text(
                           proj.title,
@@ -169,9 +169,9 @@ class SelectProjectBottomSheet extends StatelessWidget {
                           proj.githubUrl,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 12.0, color: AppColors.primary),
+                          style: TextStyle(fontSize: 12.0, color: AppColors.primary),
                         ),
-                        trailing: const Icon(Icons.check_circle_outline_rounded, color: AppColors.primary),
+                        trailing: Icon(Icons.check_circle_outline_rounded, color: AppColors.primary),
                         onTap: () {
                           Navigator.pop(context);
                           onProjectSelected(proj);

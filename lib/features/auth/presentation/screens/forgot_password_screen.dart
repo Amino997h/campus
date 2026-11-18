@@ -60,7 +60,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -114,7 +114,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
                 hintText: 'student@university.edu',
                 hintStyle: const TextStyle(fontSize: 13.0, color: AppColors.textMuted),
-                prefixIcon: const Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
+                prefixIcon: Icon(Icons.mail_outline_rounded, color: AppColors.navy, size: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                   borderSide: const BorderSide(color: AppColors.borderLight),
@@ -125,7 +125,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
-                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                  borderSide: BorderSide(color: AppColors.primary, width: 1.5),
                 ),
               ),
             ),

@@ -60,7 +60,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Project added successfully 🎉'),
             backgroundColor: AppColors.navy,
             behavior: SnackBarBehavior.floating,
@@ -104,14 +104,14 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         color: AppColors.primaryLight,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.code_rounded,
                         color: AppColors.primary,
                         size: 24.0,
                       ),
                     ),
                     const SizedBox(width: 12.0),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -144,8 +144,8 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     labelText: 'Project Title *',
                     hintText: 'e.g. Smart Campus App (Graduation Project)',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
-                    labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
-                    prefixIcon: const Icon(Icons.title_rounded, color: AppColors.navy, size: 20.0),
+                    labelStyle: TextStyle(color: AppColors.navy, fontSize: 13.0),
+                    prefixIcon: Icon(Icons.title_rounded, color: AppColors.navy, size: 20.0),
                     filled: true,
                     fillColor: AppColors.surface,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -159,7 +159,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                      borderSide: BorderSide(color: AppColors.primary, width: 1.5),
                     ),
                   ),
                   validator: (val) {
@@ -182,8 +182,8 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     labelText: 'GitHub Repository URL *',
                     hintText: 'https://github.com/username/repo-name',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
-                    labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
-                    prefixIcon: const Icon(Icons.link_rounded, color: AppColors.primary, size: 20.0),
+                    labelStyle: TextStyle(color: AppColors.navy, fontSize: 13.0),
+                    prefixIcon: Icon(Icons.link_rounded, color: AppColors.primary, size: 20.0),
                     filled: true,
                     fillColor: AppColors.surface,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -197,7 +197,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                      borderSide: BorderSide(color: AppColors.primary, width: 1.5),
                     ),
                   ),
                   validator: _validateGitHubUrl,
@@ -212,8 +212,8 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     labelText: 'Description / Tech Stack (Optional)',
                     hintText: 'e.g. Flutter app with Firebase & Node.js API',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
-                    labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
-                    prefixIcon: const Icon(Icons.notes_rounded, color: AppColors.navy, size: 20.0),
+                    labelStyle: TextStyle(color: AppColors.navy, fontSize: 13.0),
+                    prefixIcon: Icon(Icons.notes_rounded, color: AppColors.navy, size: 20.0),
                     filled: true,
                     fillColor: AppColors.surface,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -227,7 +227,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                      borderSide: BorderSide(color: AppColors.primary, width: 1.5),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'app.dart';
+import 'core/theme/theme_service.dart';
 import 'features/presence/data/presence_service.dart';
 import 'features/notifications/data/local_notification_service.dart';
 
@@ -14,6 +15,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // تهيئة وقراءة ثيم وألوان المستخدم المفضلة
+  await ThemeService().init();
 
   // تهيئة مراقبة حالة الاتصال والتواجد الحي
   PresenceService().init();

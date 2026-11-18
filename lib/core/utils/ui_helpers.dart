@@ -6,7 +6,7 @@ class UIHelpers {
   static void showSnackBar(
     BuildContext context,
     String message, {
-    Color backgroundColor = AppColors.primary,
+    Color? backgroundColor,
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -14,7 +14,7 @@ class UIHelpers {
       SnackBar(
         content: Text(message),
         duration: duration,
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? AppColors.primary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -28,7 +28,7 @@ class UIHelpers {
     required String content,
     String confirmLabel = 'Confirm',
     String cancelLabel = 'Cancel',
-    Color confirmColor = AppColors.primary,
+    Color? confirmColor,
   }) async {
     final result = await showDialog<bool>(
       context: context,
@@ -37,7 +37,7 @@ class UIHelpers {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           title,
-          style: const TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold),
+          style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold),
         ),
         content: Text(content),
         actions: [

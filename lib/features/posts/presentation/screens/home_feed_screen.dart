@@ -202,9 +202,9 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
             ),
 
             if (_isLoading)
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 40.0),
+                  padding: const EdgeInsets.symmetric(vertical: 40.0),
                   child: Center(
                     child: CircularProgressIndicator(color: AppColors.primary),
                   ),
@@ -261,6 +261,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
+          color: Colors.white,
           border: Border(
             top: BorderSide(
               color: AppColors.borderLight,
@@ -268,15 +269,23 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
             ),
           ),
         ),
-        child: SizedBox(
-          height: 58.0,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+        child: SafeArea(
+          child: SizedBox(
+            height: 60.0,
             child: BottomNavigationBar(
-              iconSize: 22.0,
-              selectedFontSize: 11.0,
-              unselectedFontSize: 11.0,
+              iconSize: 24.0,
+              selectedFontSize: 11.5,
+              unselectedFontSize: 11.5,
+              selectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                height: 1.4,
+              ),
+              unselectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+              ),
               backgroundColor: Colors.white,
+              elevation: 0,
               selectedItemColor: AppColors.primary,
               unselectedItemColor: AppColors.navy.withValues(alpha: 0.65),
               onTap: (index) {
@@ -300,7 +309,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.search_rounded),
-                  activeIcon: Icon(Icons.search_rounded),
+                  activeIcon: Icon(Icons.saved_search_rounded),
                   label: 'Search',
                 ),
                 BottomNavigationBarItem(

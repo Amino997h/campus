@@ -30,7 +30,7 @@ class MessagesDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.forum_rounded,
                     color: AppColors.primary,
                     size: 24,
@@ -69,7 +69,7 @@ class MessagesDrawer extends StatelessWidget {
                       stream: chatRepo.getUserChatsStream(currentUid),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+                          return Center(child: CircularProgressIndicator(color: AppColors.primary));
                         }
 
                         final conversations = (snapshot.data ?? [])

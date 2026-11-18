@@ -21,7 +21,7 @@ class PostProjectBadgeWidget extends StatelessWidget {
       );
       if (!launched && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('تعذر فتح رابط المشروع على GitHub.'),
             backgroundColor: AppColors.primary,
           ),
@@ -66,7 +66,7 @@ class PostProjectBadgeWidget extends StatelessWidget {
                     color: AppColors.navy.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Icon(
                       Icons.code_rounded,
                       color: AppColors.navy,
@@ -88,7 +88,7 @@ class PostProjectBadgeWidget extends StatelessWidget {
                               title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 13.5,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.navy,
@@ -143,7 +143,7 @@ class PostProjectBadgeWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.borderLight),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Icon(
                       Icons.arrow_outward_rounded,
                       size: 15.0,

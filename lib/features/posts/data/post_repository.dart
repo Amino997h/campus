@@ -191,7 +191,27 @@ class PostRepository {
       'commentsCount': FieldValue.increment(1),
     });
 
-    // إشعار صاحب المنشور أو من تم الرد عليه
+    // إشعار صاحب المنشور أو من تم الرد عليه ومكافأة صاحب التعليق بنقاط الرد الدائمة
+    if (replyToCommentId != null && replyToCommentId.isNotEmpty) {
+      try {
+        final parentCommentDoc = await _firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(replyToCommentId)
+            .get();
+        final parentAuthorUid = parentCommentDoc.data()?['authorUid'] as String?;
+        // إذا كان هناك صاحب للتعليق الأصلي وليس هو نفس الشخص الذي يرد، نكافئه بـ +2 نقطة دائمة
+        if (parentAuthorUid != null &&
+            parentAuthorUid.isNotEmpty &&
+            parentAuthorUid != myUid) {
+          await _firestore.collection('users').doc(parentAuthorUid).update({
+            'earnedReplyPoints': FieldValue.increment(2),
+          });
+        }
+      } catch (_) {}
+    }
+
     if (postAuthorUid.isNotEmpty && postAuthorUid != myUid) {
       await _notificationRepo.createNotification(
         targetUid: postAuthorUid,

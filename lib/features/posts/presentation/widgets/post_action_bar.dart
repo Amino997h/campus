@@ -58,7 +58,7 @@ class PostActionBar extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.chat_bubble_outline_rounded,
                     size: 21.0,
                     color: AppColors.navy,
@@ -81,8 +81,8 @@ class PostActionBar extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: onShareTap,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Icon(
                 Icons.share_rounded,
                 size: 21.0,

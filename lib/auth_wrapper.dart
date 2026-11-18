@@ -17,7 +17,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (context, snapshot) {
         // حالة انتظار التحقق من الجلسة المخزنة
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
+          return Scaffold(
             backgroundColor: Colors.white,
             body: Center(
               child: CircularProgressIndicator(color: AppColors.primary),

@@ -130,7 +130,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.navy),
+          icon: Icon(Icons.close_rounded, color: AppColors.navy),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -223,7 +223,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               color: AppColors.navy.withValues(alpha: 0.06),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Icon(Icons.code_rounded, color: AppColors.navy, size: 18.0),
                             ),
                           ),
@@ -239,7 +239,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                         _selectedProject!.title,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 13.0,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.navy,
@@ -333,7 +333,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               children: [
                 IconButton(
                   iconSize: 26.0,
-                  icon: const Icon(Icons.add_photo_alternate_rounded, color: AppColors.primary),
+                  icon: Icon(Icons.add_photo_alternate_rounded, color: AppColors.primary),
                   tooltip: 'إضافة صورة',
                   onPressed: _pickImage,
                 ),

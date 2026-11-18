@@ -18,6 +18,13 @@ class UserModel {
   final bool isOnline;
   final bool showOnlineStatus;
   final bool showResume;
+  final int verificationLevel; // 1: Basic (Pink), 2: Campus Email (Navy), 3: Verified Enrolled Student or Professor
+  final String verificationRole; // 'student' or 'professor'
+  final String academicEmail;
+  final String verificationDocUrl;
+  final String verificationStatus; // 'none', 'pending', 'approved', 'rejected'
+  final DateTime? verificationExpiry;
+  final int earnedReplyPoints; // نقاط مكتسبة دائمة من ردود الآخرين على ردود المستخدم
   final DateTime? lastSeen;
 
   const UserModel({
@@ -38,6 +45,13 @@ class UserModel {
     this.isOnline = false,
     this.showOnlineStatus = true,
     this.showResume = false,
+    this.verificationLevel = 1,
+    this.verificationRole = 'student',
+    this.academicEmail = '',
+    this.verificationDocUrl = '',
+    this.verificationStatus = 'none',
+    this.verificationExpiry,
+    this.earnedReplyPoints = 0,
     this.lastSeen,
   });
 
@@ -71,6 +85,13 @@ class UserModel {
       isOnline: data['isOnline'] == true,
       showOnlineStatus: data['showOnlineStatus'] ?? true,
       showResume: data['showResume'] ?? false,
+      verificationLevel: (data['verificationLevel'] as num?)?.toInt() ?? 1,
+      verificationRole: data['verificationRole'] ?? 'student',
+      academicEmail: data['academicEmail'] ?? '',
+      verificationDocUrl: data['verificationDocUrl'] ?? '',
+      verificationStatus: data['verificationStatus'] ?? 'none',
+      verificationExpiry: parseDate(data['verificationExpiry']),
+      earnedReplyPoints: (data['earnedReplyPoints'] as num?)?.toInt() ?? 0,
       lastSeen: parseDate(data['lastSeen']),
     );
   }
@@ -98,6 +119,13 @@ class UserModel {
       'isOnline': isOnline,
       'showOnlineStatus': showOnlineStatus,
       'showResume': showResume,
+      'verificationLevel': verificationLevel,
+      'verificationRole': verificationRole,
+      'academicEmail': academicEmail,
+      'verificationDocUrl': verificationDocUrl,
+      'verificationStatus': verificationStatus,
+      'earnedReplyPoints': earnedReplyPoints,
+      if (verificationExpiry != null) 'verificationExpiry': Timestamp.fromDate(verificationExpiry!),
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       if (lastSeen != null) 'lastSeen': Timestamp.fromDate(lastSeen!),
     };
@@ -121,6 +149,13 @@ class UserModel {
     bool? isOnline,
     bool? showOnlineStatus,
     bool? showResume,
+    int? verificationLevel,
+    String? verificationRole,
+    String? academicEmail,
+    String? verificationDocUrl,
+    String? verificationStatus,
+    DateTime? verificationExpiry,
+    int? earnedReplyPoints,
     DateTime? lastSeen,
   }) {
     return UserModel(
@@ -141,6 +176,13 @@ class UserModel {
       isOnline: isOnline ?? this.isOnline,
       showOnlineStatus: showOnlineStatus ?? this.showOnlineStatus,
       showResume: showResume ?? this.showResume,
+      verificationLevel: verificationLevel ?? this.verificationLevel,
+      verificationRole: verificationRole ?? this.verificationRole,
+      academicEmail: academicEmail ?? this.academicEmail,
+      verificationDocUrl: verificationDocUrl ?? this.verificationDocUrl,
+      verificationStatus: verificationStatus ?? this.verificationStatus,
+      verificationExpiry: verificationExpiry ?? this.verificationExpiry,
+      earnedReplyPoints: earnedReplyPoints ?? this.earnedReplyPoints,
       lastSeen: lastSeen ?? this.lastSeen,
     );
   }

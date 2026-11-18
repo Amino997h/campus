@@ -52,7 +52,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                   },
                   child: Text(
                     _isExpanded ? ' Show less' : 'Read more',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 13.5,

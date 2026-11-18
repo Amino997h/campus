@@ -115,7 +115,7 @@ class PostCardWidget extends StatelessWidget {
                                   post.major,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 11.5,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.primary,

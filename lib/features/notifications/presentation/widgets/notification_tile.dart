@@ -64,7 +64,7 @@ class NotificationTile extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
                   notification.subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11.5,
                     color: AppColors.primary,
                     fontWeight: FontWeight.w600,
@@ -76,7 +76,7 @@ class NotificationTile extends StatelessWidget {
             ? Container(
                 width: 8,
                 height: 8,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.primary,
                   shape: BoxShape.circle,
                 ),

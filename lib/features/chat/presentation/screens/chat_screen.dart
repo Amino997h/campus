@@ -88,8 +88,8 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Wrap(
           children: [
             ListTile(
-              leading: const Icon(Icons.delete_outline_rounded, color: AppColors.primary),
-              title: const Text('Delete Conversation',
+              leading: Icon(Icons.delete_outline_rounded, color: AppColors.primary),
+              title: Text('Delete Conversation',
                   style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
               onTap: () async {
                 Navigator.pop(bottomSheetCtx);
@@ -131,7 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         titleSpacing: 0,
@@ -167,7 +167,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     Text(
                       widget.userStatus,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11.0,
                         color: AppColors.primary,
                         fontWeight: FontWeight.bold,
@@ -181,7 +181,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert_rounded, color: AppColors.navy),
+            icon: Icon(Icons.more_vert_rounded, color: AppColors.navy),
             onPressed: _showChatOptionsMenu,
           ),
           const SizedBox(width: 6),
@@ -200,7 +200,7 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           if (_isSendingImage)
-            const LinearProgressIndicator(
+            LinearProgressIndicator(
               color: AppColors.primary,
               backgroundColor: AppColors.borderLight,
               minHeight: 2.5,
@@ -255,7 +255,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                               child: Text(
                                 DateTimeUtils.chatDateSeparator(timestamp),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 11.5,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.navy,

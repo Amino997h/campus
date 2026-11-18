@@ -73,7 +73,7 @@ class ImageUtils {
         child: Wrap(
           children: [
             ListTile(
-              leading: const Icon(Icons.photo_library_rounded, color: AppColors.primary),
+              leading: Icon(Icons.photo_library_rounded, color: AppColors.primary),
               title: const Text('Choose from Gallery', style: TextStyle(fontWeight: FontWeight.w600)),
               onTap: () async {
                 Navigator.pop(bottomSheetContext);
@@ -84,7 +84,7 @@ class ImageUtils {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.camera_alt_rounded, color: AppColors.navy),
+              leading: Icon(Icons.camera_alt_rounded, color: AppColors.navy),
               title: const Text('Take a Photo', style: TextStyle(fontWeight: FontWeight.w600)),
               onTap: () async {
                 Navigator.pop(bottomSheetContext);

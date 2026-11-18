@@ -6,6 +6,8 @@ import '../../../presence/data/presence_service.dart';
 import '../../../auth/data/auth_repository.dart';
 import '../../data/profile_repository.dart';
 import 'edit_profile_screen.dart';
+import 'verification_settings_screen.dart';
+import 'theme_customization_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -60,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -102,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
               child: Icon(Icons.person_outline_rounded, size: 20, color: AppColors.navy),
@@ -117,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
               child: Icon(Icons.edit_rounded, size: 20, color: AppColors.navy),
@@ -126,6 +128,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
             onTap: () {
               Navigator.push(context, SlidePageTransition(page: const EditProfileScreen()));
+            },
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              radius: 18,
+              backgroundColor: AppColors.avatarBg,
+              child: Icon(Icons.palette_rounded, size: 20, color: AppColors.navy),
+            ),
+            title: const Text('Theme & Colors',
+                style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.bold)),
+            subtitle: const Text('Preset themes or custom primary, navy and surface palette',
+                style: TextStyle(color: AppColors.textMuted, fontSize: 12)),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
+            onTap: () {
+              Navigator.push(
+                context,
+                SlidePageTransition(page: const ThemeCustomizationScreen()),
+              );
+            },
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              radius: 18,
+              backgroundColor: AppColors.avatarBg,
+              child: Icon(Icons.verified_user_rounded, size: 20, color: AppColors.primary),
+            ),
+            title: const Text('Academic Verification',
+                style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.bold)),
+            subtitle: const Text('Manage student or faculty credibility tier & profile ring',
+                style: TextStyle(color: AppColors.textMuted, fontSize: 12)),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
+            onTap: () async {
+              final uid = _authRepo.currentUser?.uid;
+              if (uid != null) {
+                final user = await _profileRepo.getUserProfile(uid);
+                if (user != null && context.mounted) {
+                  Navigator.push(
+                    context,
+                    SlidePageTransition(page: VerificationSettingsScreen(user: user)),
+                  );
+                }
+              }
             },
           ),
 
@@ -229,12 +273,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.avatarBg,
               child: Icon(Icons.logout_rounded, size: 20, color: AppColors.primary),
             ),
-            title: const Text('Log Out', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+            title: Text('Log Out', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
             onTap: () async {
               await _presenceService.setOnline(false);
               await _authRepo.signOut();

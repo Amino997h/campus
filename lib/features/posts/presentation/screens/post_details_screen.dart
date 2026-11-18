@@ -152,7 +152,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.navy, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -217,7 +217,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                         effectiveMajor,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.primary,
@@ -288,7 +288,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 8.0),
                     child: Row(
-                      children: const [
+                      children: [
                         Icon(Icons.forum_outlined, size: 18, color: AppColors.navy),
                         SizedBox(width: 6),
                         Text(
@@ -311,7 +311,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                         final comments = snapshot.data ?? [];
 
                         if (snapshot.connectionState == ConnectionState.waiting && comments.isEmpty) {
-                          return const Padding(
+                          return Padding(
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                             child: Center(
                               child: CircularProgressIndicator(color: AppColors.primary),
@@ -396,12 +396,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       color: AppColors.primaryLight,
                       child: Row(
                         children: [
-                          const Icon(Icons.reply_rounded, size: 16, color: AppColors.primary),
+                          Icon(Icons.reply_rounded, size: 16, color: AppColors.primary),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
                               'Replying to @$_replyToAuthorName',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 12.0,
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -411,7 +411,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                           IconButton(
                             constraints: const BoxConstraints(),
                             padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.close_rounded, size: 18, color: AppColors.primary),
+                            icon: Icon(Icons.close_rounded, size: 18, color: AppColors.primary),
                             onPressed: _cancelReply,
                           ),
                         ],
@@ -441,7 +441,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                         ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const Icon(Icons.send_rounded, color: AppColors.primary),
+                          icon: Icon(Icons.send_rounded, color: AppColors.primary),
                           onPressed: _addComment,
                         ),
                       ],
