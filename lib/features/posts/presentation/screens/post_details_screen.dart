@@ -198,44 +198,53 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                effectiveAuthorName,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textDark,
+                                ),
+                              ),
+                              const SizedBox(height: 1.5),
                               Row(
                                 children: [
-                                  Text(
-                                    effectiveAuthorName,
-                                    style: const TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textDark,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 6.0,
-                                      vertical: 1.5,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primaryLight,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Text(
-                                      effectiveMajor,
-                                      style: const TextStyle(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primary,
+                                  if (effectiveMajor.isNotEmpty) ...[
+                                    Flexible(
+                                      child: Text(
+                                        effectiveMajor,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.primary,
+                                        ),
                                       ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: Text(
+                                        '•',
+                                        style: TextStyle(
+                                          fontSize: 11.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.textMuted,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  Text(
+                                    widget.timeAgo,
+                                    style: const TextStyle(
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.textMuted,
                                     ),
                                   ),
                                 ],
-                              ),
-                              Text(
-                                widget.timeAgo,
-                                style: const TextStyle(
-                                  fontSize: 11.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primary,
-                                ),
                               ),
                             ],
                           ),

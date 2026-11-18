@@ -26,7 +26,7 @@ class ProjectCardWidget extends StatelessWidget {
       if (!launched && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('تعذر فتح الرابط، يرجى التأكد من صحته.'),
+            content: Text('Could not open link. Please verify URL.'),
             backgroundColor: AppColors.primary,
           ),
         );
@@ -39,12 +39,12 @@ class ProjectCardWidget extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('حذف المشروع', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
-        content: const Text('هل أنت متأكد من رغبتك في حذف هذا المشروع من قائمتك؟'),
+        title: const Text('Delete Project', style: TextStyle(color: AppColors.navy, fontWeight: FontWeight.bold)),
+        content: const Text('Are you sure you want to remove this project from your list?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('إلغاء', style: TextStyle(color: AppColors.textMuted)),
+            child: const Text('Cancel', style: TextStyle(color: AppColors.textMuted)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -55,7 +55,7 @@ class ProjectCardWidget extends StatelessWidget {
               Navigator.pop(ctx);
               await profileRepo.deleteProject(project.id);
             },
-            child: const Text('حذف', style: TextStyle(color: Colors.white)),
+            child: const Text('Delete', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -65,7 +65,7 @@ class ProjectCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
@@ -73,7 +73,7 @@ class ProjectCardWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 8,
+            blurRadius: 6,
             offset: const Offset(0, 2),
           ),
         ],
@@ -84,7 +84,7 @@ class ProjectCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
           onTap: () => _launchUrl(context),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(14.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -92,18 +92,19 @@ class ProjectCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: AppColors.navy.withValues(alpha: 0.08),
-                        shape: BoxShape.circle,
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(color: AppColors.borderLight, width: 0.8),
                       ),
                       child: const Icon(
                         Icons.code_rounded,
                         color: AppColors.navy,
-                        size: 22.0,
+                        size: 20.0,
                       ),
                     ),
-                    const SizedBox(width: 12.0),
+                    const SizedBox(width: 10.0),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,18 +112,18 @@ class ProjectCardWidget extends StatelessWidget {
                           Text(
                             project.title,
                             style: const TextStyle(
-                              fontSize: 15.0,
+                              fontSize: 14.5,
                               fontWeight: FontWeight.bold,
                               color: AppColors.navy,
                             ),
                           ),
-                          const SizedBox(height: 4.0),
+                          const SizedBox(height: 3.0),
                           Row(
                             children: [
                               const Icon(
                                 Icons.link_rounded,
-                                size: 14.0,
-                                color: AppColors.primary,
+                                size: 13.0,
+                                color: AppColors.textMuted,
                               ),
                               const SizedBox(width: 4.0),
                               Expanded(
@@ -131,8 +132,8 @@ class ProjectCardWidget extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 12.0,
-                                    color: AppColors.primary,
+                                    fontSize: 11.5,
+                                    color: AppColors.textMuted,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -144,7 +145,7 @@ class ProjectCardWidget extends StatelessWidget {
                     ),
                     if (isOwner)
                       IconButton(
-                        icon: const Icon(Icons.delete_outline_rounded, color: AppColors.textMuted, size: 20.0),
+                        icon: const Icon(Icons.delete_outline_rounded, color: AppColors.textMuted, size: 19.0),
                         onPressed: () => _confirmDelete(context),
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
@@ -153,7 +154,7 @@ class ProjectCardWidget extends StatelessWidget {
                   ],
                 ),
                 if (project.description != null && project.description!.trim().isNotEmpty) ...[
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     project.description!.trim(),
                     style: const TextStyle(
@@ -163,34 +164,30 @@ class ProjectCardWidget extends StatelessWidget {
                     ),
                   ),
                 ],
-                const SizedBox(height: 12.0),
+                const SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(12.0),
+                    TextButton.icon(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        foregroundColor: AppColors.primary,
                       ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'فتح المستودع على GitHub',
-                            style: TextStyle(
-                              fontSize: 11.5,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 4.0),
-                          Icon(
-                            Icons.arrow_outward_rounded,
-                            size: 13.0,
-                            color: AppColors.primary,
-                          ),
-                        ],
+                      onPressed: () => _launchUrl(context),
+                      icon: const Text(
+                        'Open on GitHub',
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      label: const Icon(
+                        Icons.arrow_outward_rounded,
+                        size: 13.0,
+                        color: AppColors.primary,
                       ),
                     ),
                   ],

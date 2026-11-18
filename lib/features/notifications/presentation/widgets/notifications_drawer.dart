@@ -24,7 +24,7 @@ class NotificationsDrawer extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               child: Row(
                 children: [
                   const Icon(
@@ -47,38 +47,19 @@ class NotificationsDrawer extends StatelessWidget {
                     stream: notifRepo.hasUnreadNotificationsStream(currentUid),
                     builder: (context, snapshot) {
                       final hasUnread = snapshot.data ?? false;
-                      return Tooltip(
-                        message: 'تعليم الكل كمقروء',
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: hasUnread
-                                ? AppColors.primary.withValues(alpha: 0.1)
-                                : Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          onPressed: hasUnread
-                              ? () async {
-                                  await notifRepo.markAllNotificationsAsRead(currentUid);
-                                }
-                              : null,
-                          icon: Icon(
-                            Icons.done_all_rounded,
-                            size: 18.0,
-                            color: hasUnread ? AppColors.primary : AppColors.textMuted,
-                          ),
-                          label: Text(
-                            'مقروء',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: hasUnread ? AppColors.primary : AppColors.textMuted,
-                            ),
-                          ),
+                      return IconButton(
+                        tooltip: 'Mark all as read',
+                        iconSize: 22.0,
+                        visualDensity: VisualDensity.compact,
+                        splashRadius: 20.0,
+                        onPressed: hasUnread
+                            ? () async {
+                                await notifRepo.markAllNotificationsAsRead(currentUid);
+                              }
+                            : null,
+                        icon: Icon(
+                          Icons.done_all_rounded,
+                          color: hasUnread ? AppColors.primary : AppColors.textMuted.withValues(alpha: 0.4),
                         ),
                       );
                     },

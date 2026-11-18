@@ -60,7 +60,7 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
               padding: EdgeInsets.symmetric(vertical: 36.0),
               child: Center(
                 child: Text(
-                  'لا توجد منشورات حتى الآن.',
+                  'No posts yet.',
                   style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                 ),
               ),
@@ -78,7 +78,7 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
           if (widget.isMe)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: OutlinedButton.icon(
+              child: ElevatedButton.icon(
                 onPressed: () async {
                   await showDialog(
                     context: context,
@@ -89,22 +89,22 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
                   );
                   widget.onProjectsUpdated?.call();
                 },
-                icon: const Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                icon: const Icon(Icons.add_rounded, color: Colors.white, size: 18),
                 label: const Text(
-                  'إضافة مشروع / ريبو جديد من GitHub',
+                  'Add New Project / GitHub Repo',
                   style: TextStyle(
-                    color: AppColors.navy,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 13.0,
                   ),
                 ),
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: AppColors.primary, width: 1.2),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  backgroundColor: AppColors.primary.withValues(alpha: 0.04),
                 ),
               ),
             ),
@@ -122,8 +122,8 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
                   const SizedBox(height: 12.0),
                   Text(
                     widget.isMe
-                        ? 'لم تقم بإضافة مشاريع تخرج أو مستودعات بعد.\nشارك مشاريعك البرمجية من GitHub ليراها زملاؤك!'
-                        : 'لم يقم هذا المستخدم بإضافة أي مشاريع تخرج أو مستودعات بعد.',
+                        ? 'No projects or repositories added yet.\nShowcase your GitHub projects to classmates!'
+                        : 'No projects or repositories added yet.',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: AppColors.textMuted,

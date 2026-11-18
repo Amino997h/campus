@@ -33,15 +33,15 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
 
   String? _validateGitHubUrl(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'يرجى إدخال رابط مستودع GitHub';
+      return 'Please enter a GitHub repository URL';
     }
     final clean = value.trim();
     if (!clean.startsWith('http://') && !clean.startsWith('https://')) {
-      return 'يرجى إدخال رابط يبدأ بـ https://';
+      return 'URL must start with https://';
     }
     final uri = Uri.tryParse(clean);
     if (uri == null || (!uri.host.contains('github.com') && !uri.host.contains('gitlab.com'))) {
-      return 'يرجى إدخال رابط GitHub صالح (github.com/...)';
+      return 'Please enter a valid GitHub repository URL (github.com/...)';
     }
     return null;
   }
@@ -61,7 +61,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('تمت إضافة المشروع بنجاح 🎉'),
+            content: Text('Project added successfully 🎉'),
             backgroundColor: AppColors.navy,
             behavior: SnackBarBehavior.floating,
           ),
@@ -71,7 +71,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('حدث خطأ أثناء إضافة المشروع: $e'),
+            content: Text('Error adding project: $e'),
             backgroundColor: AppColors.primary,
             behavior: SnackBarBehavior.floating,
           ),
@@ -101,7 +101,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                     Container(
                       padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
+                        color: AppColors.primaryLight,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -116,7 +116,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'إضافة مشروع / ريبو جديد',
+                            'Add Project / Repo',
                             style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                             ),
                           ),
                           Text(
-                            'أضف مشروع التخرج أو مستودع GitHub الخاص بك',
+                            'Showcase your GitHub project or repo',
                             style: TextStyle(
                               fontSize: 11.5,
                               color: AppColors.textMuted,
@@ -137,13 +137,12 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                 ),
                 const SizedBox(height: 20.0),
 
-                // عنوان المشروع
+                // Project Title
                 TextFormField(
                   controller: _titleController,
-                  textDirection: TextDirection.rtl,
                   decoration: InputDecoration(
-                    labelText: 'عنوان المشروع القصير *',
-                    hintText: 'مثال: نظام إدارة العيادات الذكي (مشروع تخرج)',
+                    labelText: 'Project Title *',
+                    hintText: 'e.g. Smart Campus App (Graduation Project)',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
                     labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
                     prefixIcon: const Icon(Icons.title_rounded, color: AppColors.navy, size: 20.0),
@@ -165,22 +164,22 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                   ),
                   validator: (val) {
                     if (val == null || val.trim().isEmpty) {
-                      return 'يرجى إدخال عنوان قصير للمشروع';
+                      return 'Please enter a short project title';
                     }
                     if (val.trim().length > 60) {
-                      return 'العنوان يجب ألا يتجاوز 60 حرفاً';
+                      return 'Title cannot exceed 60 characters';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 14.0),
 
-                // رابط GitHub Repo
+                // GitHub Repo URL
                 TextFormField(
                   controller: _urlController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                    labelText: 'رابط مستودع GitHub *',
+                    labelText: 'GitHub Repository URL *',
                     hintText: 'https://github.com/username/repo-name',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
                     labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
@@ -205,14 +204,13 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                 ),
                 const SizedBox(height: 14.0),
 
-                // وصف اختياري
+                // Description
                 TextFormField(
                   controller: _descController,
                   maxLines: 2,
-                  textDirection: TextDirection.rtl,
                   decoration: InputDecoration(
-                    labelText: 'وصف مختصر أو التقنيات المستخدمة (اختياري)',
-                    hintText: 'مثال: تطبيق Flutter مع Firebase و Node.js API',
+                    labelText: 'Description / Tech Stack (Optional)',
+                    hintText: 'e.g. Flutter app with Firebase & Node.js API',
                     hintStyle: const TextStyle(fontSize: 12.0, color: AppColors.textMuted),
                     labelStyle: const TextStyle(color: AppColors.navy, fontSize: 13.0),
                     prefixIcon: const Icon(Icons.notes_rounded, color: AppColors.navy, size: 20.0),
@@ -235,7 +233,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                 ),
                 const SizedBox(height: 22.0),
 
-                // أزرار الإجراء
+                // Buttons
                 Row(
                   children: [
                     Expanded(
@@ -248,7 +246,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                           ),
                         ),
                         child: const Text(
-                          'إلغاء',
+                          'Cancel',
                           style: TextStyle(
                             color: AppColors.textMuted,
                             fontWeight: FontWeight.bold,
@@ -279,7 +277,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                                 ),
                               )
                             : const Text(
-                                'إضافة المشروع',
+                                'Add Project',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

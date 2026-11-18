@@ -31,7 +31,7 @@ class ProfileSegmentedControl extends StatelessWidget {
             child: _buildTabButton(
               index: 0,
               icon: Icons.grid_on_rounded,
-              title: 'المنشورات',
+              title: 'Posts',
               count: postsCount,
               isSelected: selectedIndex == 0,
             ),
@@ -41,7 +41,7 @@ class ProfileSegmentedControl extends StatelessWidget {
             child: _buildTabButton(
               index: 1,
               icon: Icons.code_rounded,
-              title: 'المشاريع',
+              title: 'Projects',
               count: projectsCount,
               isSelected: selectedIndex == 1,
             ),

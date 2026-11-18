@@ -96,48 +96,53 @@ class PostCardWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          post.authorName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14.5,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textDark,
+                          ),
+                        ),
+                        const SizedBox(height: 1.5),
                         Row(
                           children: [
-                            Flexible(
-                              child: Text(
-                                post.authorName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 14.5,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textDark,
+                            if (post.major.isNotEmpty) ...[
+                              Flexible(
+                                child: Text(
+                                  post.major,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0,
-                                vertical: 1.5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryLight,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Text(
-                                post.major.isNotEmpty ? post.major : 'CS',
-                                style: const TextStyle(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primary,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Text(
+                                  '•',
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textMuted,
+                                  ),
                                 ),
+                              ),
+                            ],
+                            Text(
+                              timeAgo,
+                              style: const TextStyle(
+                                fontSize: 11.0,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textMuted,
                               ),
                             ),
                           ],
-                        ),
-                        Text(
-                          timeAgo,
-                          style: const TextStyle(
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                          ),
                         ),
                       ],
                     ),

@@ -58,7 +58,7 @@ class SelectProjectBottomSheet extends StatelessWidget {
                 const SizedBox(width: 10.0),
                 const Expanded(
                   child: Text(
-                    'اختر مشروعاً كمرجع للمنشور',
+                    'Attach a Project Reference',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -77,9 +77,9 @@ class SelectProjectBottomSheet extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.add, size: 16, color: AppColors.primary),
+                  icon: const Icon(Icons.add_rounded, size: 16, color: AppColors.primary),
                   label: const Text(
-                    'مشروع جديد',
+                    'New Project',
                     style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class SelectProjectBottomSheet extends StatelessWidget {
                           const Icon(Icons.folder_open_rounded, size: 44, color: AppColors.textMuted),
                           const SizedBox(height: 8),
                           const Text(
-                            'لم تقم بإضافة أي مشاريع في ملفك الشخصي بعد.',
+                            'No projects added to your profile yet.',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                           ),
@@ -134,7 +134,7 @@ class SelectProjectBottomSheet extends StatelessWidget {
                               );
                             },
                             icon: const Icon(Icons.add_rounded, color: Colors.white, size: 18),
-                            label: const Text('إضافة مشروع الآن', style: TextStyle(color: Colors.white)),
+                            label: const Text('Add Project Now', style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       ),
