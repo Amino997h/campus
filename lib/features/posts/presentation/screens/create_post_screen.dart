@@ -211,18 +211,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
                       decoration: BoxDecoration(
                         color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(14.0),
-                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.4), width: 1.2),
+                        borderRadius: BorderRadius.circular(16.0),
+                        border: Border.all(color: AppColors.borderLight),
                       ),
                       child: Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(7.0),
+                            width: 36.0,
+                            height: 36.0,
                             decoration: BoxDecoration(
-                              color: AppColors.primary.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(8.0),
+                              color: AppColors.navy.withValues(alpha: 0.06),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: const Icon(Icons.code_rounded, color: AppColors.primary, size: 20.0),
+                            child: const Center(
+                              child: Icon(Icons.code_rounded, color: AppColors.navy, size: 18.0),
+                            ),
                           ),
                           const SizedBox(width: 10.0),
                           Expanded(
@@ -231,19 +234,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.5),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.navy,
-                                        borderRadius: BorderRadius.circular(5.0),
-                                      ),
-                                      child: const Text(
-                                        'مشروع مرجعي',
-                                        style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 6.0),
-                                    Expanded(
+                                    Flexible(
                                       child: Text(
                                         _selectedProject!.title,
                                         maxLines: 1,
@@ -255,6 +246,27 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                         ),
                                       ),
                                     ),
+                                    const SizedBox(width: 6.0),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.5),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.searchBarBg,
+                                        borderRadius: BorderRadius.circular(6.0),
+                                        border: Border.all(
+                                          color: AppColors.borderLight,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        'Project',
+                                        style: TextStyle(
+                                          fontSize: 9.5,
+                                          color: AppColors.textMuted,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 0.3,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 2.0),
@@ -262,7 +274,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                   _selectedProject!.githubUrl,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 11.0, color: AppColors.primary),
+                                  style: const TextStyle(fontSize: 11.0, color: AppColors.textMuted),
                                 ),
                               ],
                             ),

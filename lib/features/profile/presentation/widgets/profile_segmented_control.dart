@@ -6,6 +6,7 @@ class ProfileSegmentedControl extends StatelessWidget {
   final ValueChanged<int> onTabChanged;
   final int postsCount;
   final int projectsCount;
+  final bool showResumeTab;
 
   const ProfileSegmentedControl({
     super.key,
@@ -13,12 +14,13 @@ class ProfileSegmentedControl extends StatelessWidget {
     required this.onTabChanged,
     this.postsCount = 0,
     this.projectsCount = 0,
+    this.showResumeTab = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       padding: const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -46,6 +48,17 @@ class ProfileSegmentedControl extends StatelessWidget {
               isSelected: selectedIndex == 1,
             ),
           ),
+          if (showResumeTab) ...[
+            const SizedBox(width: 4.0),
+            Expanded(
+              child: _buildTabButton(
+                index: 2,
+                icon: Icons.badge_outlined,
+                title: 'CV',
+                isSelected: selectedIndex == 2,
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -55,7 +68,7 @@ class ProfileSegmentedControl extends StatelessWidget {
     required int index,
     required IconData icon,
     required String title,
-    required int count,
+    int count = 0,
     required bool isSelected,
   }) {
     return InkWell(

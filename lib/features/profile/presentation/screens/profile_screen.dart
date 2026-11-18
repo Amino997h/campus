@@ -13,6 +13,7 @@ import '../widgets/profile_stats_row.dart';
 import '../widgets/profile_action_bar.dart';
 import '../widgets/profile_content_tabs.dart';
 import '../widgets/followers_count_widget.dart';
+import '../../models/resume_model.dart';
 import 'settings_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -33,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final GlobalKey<FollowersCountWidgetState> _followersKey = GlobalKey<FollowersCountWidgetState>();
 
   UserModel? _user;
+  ResumeModel? _resume;
   int _followersCount = 0;
   List<PostModel> _userPosts = [];
   List<ProjectModel> _userProjects = [];
@@ -53,10 +55,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       final user = await _profileRepo.getUserProfile(uid);
       final posts = await _profileRepo.getUserPosts(uid);
       final projects = await _profileRepo.getUserProjects(uid);
+      final resume = await _profileRepo.getResume(uid);
 
       if (mounted) {
         setState(() {
           _user = user;
+          _resume = resume;
           _followersCount = user?.followers.length ?? 0;
           _userPosts = posts;
           _userProjects = projects;
@@ -240,15 +244,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     profileRepo: _profileRepo,
                   ),
 
-                  // قسم التبويب والمحتوى (المنشورات والمشاريع) المعزول تماماً
+                  // قسم التبويب والمحتوى (المنشورات والمشاريع والسيرة الذاتية)
                   ProfileContentTabs(
                     uid: uid,
                     isMe: isMe,
                     currentUid: currentLoggedUser?.uid ?? '',
+                    userProfile: _user,
                     posts: _userPosts,
                     projects: _userProjects,
+                    resume: _resume,
                     profileRepo: _profileRepo,
                     onProjectsUpdated: _loadProfileData,
+                    onResumeUpdated: _loadProfileData,
                   ),
                 ],
               ),

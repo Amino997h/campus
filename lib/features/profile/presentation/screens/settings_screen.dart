@@ -23,6 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _emailAlerts = false;
   bool _campusFeedOnly = true;
   bool _showOnlineStatus = true;
+  bool _showResume = false;
   bool _isLoadingStatus = true;
 
   @override
@@ -39,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (mounted && user != null) {
           setState(() {
             _showOnlineStatus = user.showOnlineStatus;
+            _showResume = user.showResume;
             _isLoadingStatus = false;
           });
           return;
@@ -156,6 +158,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 : (val) {
                     setState(() => _showOnlineStatus = val);
                     _presenceService.setShowOnlineStatus(val);
+                  },
+          ),
+          SwitchListTile(
+            value: _showResume,
+            activeThumbColor: AppColors.primary,
+            title: const Text('Display CV on Profile',
+                style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.bold)),
+            subtitle: const Text('Allow classmates and visitors to view your student resume on your profile'),
+            onChanged: _isLoadingStatus
+                ? null
+                : (val) async {
+                    setState(() => _showResume = val);
+                    final uid = _authRepo.currentUser?.uid;
+                    if (uid != null) {
+                      await _profileRepo.setShowResume(uid, val);
+                    }
                   },
           ),
           SwitchListTile(

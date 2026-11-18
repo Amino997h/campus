@@ -36,41 +36,46 @@ class PostProjectBadgeWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(14.0),
+        borderRadius: BorderRadius.circular(16.0),
         border: Border.all(
-          color: AppColors.primary.withValues(alpha: 0.35),
-          width: 1.2,
+          color: AppColors.borderLight.withValues(alpha: 0.8),
+          width: 1.0,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: AppColors.navy.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(14.0),
+          borderRadius: BorderRadius.circular(16.0),
           onTap: () => _launchUrl(context),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
             child: Row(
               children: [
+                // GitHub / Code Icon Container
                 Container(
-                  padding: const EdgeInsets.all(8.0),
+                  width: 40.0,
+                  height: 40.0,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(10.0),
+                    color: AppColors.navy.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: const Icon(
-                    Icons.code_rounded,
-                    color: AppColors.primary,
-                    size: 20.0,
+                  child: const Center(
+                    child: Icon(
+                      Icons.code_rounded,
+                      color: AppColors.navy,
+                      size: 20.0,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12.0),
+                // Text details
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,23 +83,7 @@ class PostProjectBadgeWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                            decoration: BoxDecoration(
-                              color: AppColors.navy,
-                              borderRadius: BorderRadius.circular(6.0),
-                            ),
-                            child: const Text(
-                              'مشروع مرجعي',
-                              style: TextStyle(
-                                fontSize: 9.5,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 6.0),
-                          Expanded(
+                          Flexible(
                             child: Text(
                               title,
                               maxLines: 1,
@@ -106,16 +95,38 @@ class PostProjectBadgeWidget extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 8.0),
+                          // Simple minimal pill badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.surface,
+                              borderRadius: BorderRadius.circular(6.0),
+                              border: Border.all(
+                                color: AppColors.borderLight,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: const Text(
+                              'Project',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: AppColors.textMuted,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 3.0),
+                      const SizedBox(height: 4.0),
                       Text(
                         githubUrl,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 11.5,
-                          color: AppColors.primary,
+                          color: AppColors.textMuted,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -123,17 +134,21 @@ class PostProjectBadgeWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8.0),
+                // Arrow external icon
                 Container(
-                  padding: const EdgeInsets.all(6.0),
+                  width: 32.0,
+                  height: 32.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.borderLight),
                   ),
-                  child: const Icon(
-                    Icons.arrow_outward_rounded,
-                    size: 14.0,
-                    color: AppColors.primary,
+                  child: const Center(
+                    child: Icon(
+                      Icons.arrow_outward_rounded,
+                      size: 15.0,
+                      color: AppColors.navy,
+                    ),
                   ),
                 ),
               ],

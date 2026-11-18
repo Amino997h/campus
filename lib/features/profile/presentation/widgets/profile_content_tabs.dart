@@ -3,29 +3,38 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../posts/models/post_model.dart';
 import '../../../posts/presentation/widgets/post_card_widget.dart';
 import '../../models/project_model.dart';
+import '../../models/user_model.dart';
+import '../../models/resume_model.dart';
 import '../../data/profile_repository.dart';
 import 'profile_segmented_control.dart';
 import 'project_card_widget.dart';
 import 'add_project_dialog.dart';
+import 'resume_view_widget.dart';
 
 class ProfileContentTabs extends StatefulWidget {
   final String uid;
   final bool isMe;
   final String currentUid;
+  final UserModel? userProfile;
   final List<PostModel> posts;
   final List<ProjectModel> projects;
+  final ResumeModel? resume;
   final ProfileRepository profileRepo;
   final VoidCallback? onProjectsUpdated;
+  final VoidCallback? onResumeUpdated;
 
   const ProfileContentTabs({
     super.key,
     required this.uid,
     required this.isMe,
     required this.currentUid,
+    this.userProfile,
     required this.posts,
     required this.projects,
+    this.resume,
     required this.profileRepo,
     this.onProjectsUpdated,
+    this.onResumeUpdated,
   });
 
   @override
@@ -33,19 +42,24 @@ class ProfileContentTabs extends StatefulWidget {
 }
 
 class _ProfileContentTabsState extends State<ProfileContentTabs> {
-  int _selectedTabIndex = 0; // 0 = Posts, 1 = Projects
+  int _selectedTabIndex = 0; // 0 = Posts, 1 = Projects, 2 = CV
 
   @override
   Widget build(BuildContext context) {
+    // السيفي مخفي افتراضياً لزوار الملف الشخصي ويظهر فقط إذا فعّله المستخدم من الإعدادات
+    // أما لصاحب الحساب (isMe) فيظهر له دائماً لكي يتمكن من بنائه وتعديله
+    final canShowResumeTab = widget.isMe || (widget.userProfile?.showResume ?? false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // شريط التبديل بين المنشورات والمشاريع
+        // شريط التبديل بين المنشورات والمشاريع والسيرة الذاتية
         ProfileSegmentedControl(
           selectedIndex: _selectedTabIndex,
           postsCount: widget.posts.length,
           projectsCount: widget.projects.length,
+          showResumeTab: canShowResumeTab,
           onTabChanged: (index) {
             setState(() {
               _selectedTabIndex = index;
@@ -53,7 +67,7 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
           },
         ),
 
-        // تبويب المنشورات (معزول تماماً عن التعديلات العلوية للملف الشخصي)
+        // تبويب المنشورات
         if (_selectedTabIndex == 0) ...[
           if (widget.posts.isEmpty)
             const Padding(
@@ -73,7 +87,7 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
                 currentUid: widget.currentUid,
               ),
             ),
-        ] else ...[
+        ] else if (_selectedTabIndex == 1) ...[
           // تبويب المشاريع
           if (widget.isMe)
             Padding(
@@ -143,6 +157,17 @@ class _ProfileContentTabsState extends State<ProfileContentTabs> {
                 profileRepo: widget.profileRepo,
               ),
             ),
+        ] else ...[
+          // تبويب السيرة الذاتية (CV / Resume)
+          ResumeViewWidget(
+            uid: widget.uid,
+            isMe: widget.isMe,
+            userProfile: widget.userProfile,
+            projects: widget.projects,
+            resume: widget.resume,
+            profileRepo: widget.profileRepo,
+            onResumeUpdated: widget.onResumeUpdated,
+          ),
         ],
       ],
     );

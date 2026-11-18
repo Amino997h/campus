@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_model.dart';
 import '../models/project_model.dart';
+import '../models/resume_model.dart';
 import '../../posts/models/post_model.dart';
 import '../../notifications/data/notification_repository.dart';
 
@@ -209,6 +210,42 @@ class ProfileRepository {
   // حذف مشروع
   Future<void> deleteProject(String projectId) async {
     await _firestore.collection('projects').doc(projectId).delete();
+  }
+
+  // جلب السيرة الذاتية للمستخدم لحظياً
+  Stream<ResumeModel?> getResumeStream(String uid) {
+    if (uid.isEmpty) return Stream.value(null);
+    return _firestore.collection('users').doc(uid).collection('resume').doc('profile').snapshots().map((doc) {
+      if (!doc.exists) return null;
+      return ResumeModel.fromFirestore(doc);
+    });
+  }
+
+  // جلب السيرة الذاتية للمستخدم لمرة واحدة
+  Future<ResumeModel?> getResume(String uid) async {
+    if (uid.isEmpty) return null;
+    final doc = await _firestore.collection('users').doc(uid).collection('resume').doc('profile').get();
+    if (!doc.exists) return null;
+    return ResumeModel.fromFirestore(doc);
+  }
+
+  // حفظ أو تحديث السيرة الذاتية
+  Future<void> saveResume(ResumeModel resume) async {
+    if (resume.uid.isEmpty) return;
+    await _firestore
+        .collection('users')
+        .doc(resume.uid)
+        .collection('resume')
+        .doc('profile')
+        .set(resume.toMap(), SetOptions(merge: true));
+  }
+
+  // تحديث إعداد خصوصية عرض السيرة الذاتية (CV)
+  Future<void> setShowResume(String uid, bool show) async {
+    if (uid.isEmpty) return;
+    await _firestore.collection('users').doc(uid).set({
+      'showResume': show,
+    }, SetOptions(merge: true));
   }
 
   // حساب نقاط الكارما الجامعية (Campus Karma Points)

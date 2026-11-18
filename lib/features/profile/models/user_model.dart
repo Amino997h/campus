@@ -17,6 +17,7 @@ class UserModel {
   final List<String> following;
   final bool isOnline;
   final bool showOnlineStatus;
+  final bool showResume;
   final DateTime? lastSeen;
 
   const UserModel({
@@ -36,6 +37,7 @@ class UserModel {
     this.following = const [],
     this.isOnline = false,
     this.showOnlineStatus = true,
+    this.showResume = false,
     this.lastSeen,
   });
 
@@ -68,6 +70,7 @@ class UserModel {
       following: List<String>.from(data['following'] ?? []),
       isOnline: data['isOnline'] == true,
       showOnlineStatus: data['showOnlineStatus'] ?? true,
+      showResume: data['showResume'] ?? false,
       lastSeen: parseDate(data['lastSeen']),
     );
   }
@@ -94,6 +97,7 @@ class UserModel {
       'following': following,
       'isOnline': isOnline,
       'showOnlineStatus': showOnlineStatus,
+      'showResume': showResume,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       if (lastSeen != null) 'lastSeen': Timestamp.fromDate(lastSeen!),
     };
@@ -116,6 +120,7 @@ class UserModel {
     List<String>? following,
     bool? isOnline,
     bool? showOnlineStatus,
+    bool? showResume,
     DateTime? lastSeen,
   }) {
     return UserModel(
@@ -135,6 +140,7 @@ class UserModel {
       following: following ?? this.following,
       isOnline: isOnline ?? this.isOnline,
       showOnlineStatus: showOnlineStatus ?? this.showOnlineStatus,
+      showResume: showResume ?? this.showResume,
       lastSeen: lastSeen ?? this.lastSeen,
     );
   }
