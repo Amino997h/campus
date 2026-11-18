@@ -17,6 +17,31 @@ class ChatRepository {
         _auth = auth ?? FirebaseAuth.instance,
         _notifService = notifService ?? LocalNotificationService();
 
+  // إنشاء أو استرجاع محادثة بين مستخدمين
+  static String getConversationId(String uid1, String uid2) {
+    final list = [uid1, uid2]..sort();
+    return '${list[0]}_${list[1]}';
+  }
+
+  // التأكد من تهيئة وثيقة المحادثة أو إرجاع الـ chatId
+  Future<String> getOrCreateChatId({
+    required String currentUid,
+    required String recipientUid,
+  }) async {
+    final chatId = getConversationId(currentUid, recipientUid);
+    final chatDoc = await _firestore.collection('chats').doc(chatId).get();
+    if (!chatDoc.exists) {
+      await _firestore.collection('chats').doc(chatId).set({
+        'chatId': chatId,
+        'participants': [currentUid, recipientUid],
+        'lastMessage': '',
+        'lastSenderId': '',
+        'createdAt': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+    }
+    return chatId;
+  }
+
   // جلب تدفق المحادثات للمستخدم الحالي
   Stream<List<ChatConversationModel>> getUserChatsStream(String currentUid) {
     return _firestore

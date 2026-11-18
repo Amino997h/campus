@@ -220,13 +220,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  // زر المتابعة المعزول ذاتياً بنسبة 100% (بدون عمل setState على شاشة الملف الشخصي)
+                  // زر المتابعة والمراسلة المعزول ذاتياً
                   Center(
                     child: ProfileActionBar(
                       isMe: isMe,
                       initialIsFollowing: isFollowing,
                       uid: uid,
                       name: name,
+                      major: major,
                       profileRepo: _profileRepo,
                       onFollowChanged: (nowFollowing) {
                         // تحديث عنصر العداد المخصص فقط دون إعادة بناء الصورة أو الصفحة
