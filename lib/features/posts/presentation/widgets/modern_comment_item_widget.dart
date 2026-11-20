@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/date_time_utils.dart';
+import '../../../../core/utils/ui_helpers.dart';
 import '../../../../core/widgets/dynamic_user_avatar.dart';
 import '../../models/comment_model.dart';
 import '../../data/post_repository.dart';
@@ -125,6 +126,41 @@ class ModernCommentItemWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w600,
+                            color: AppColors.textMuted,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    // زر الإبلاغ عن التعليق
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8.0),
+                      onTap: () async {
+                        try {
+                          await postRepo.reportComment(
+                            postId: postId,
+                            commentId: comment.id,
+                            commentText: comment.text,
+                            commentAuthorUid: comment.authorUid,
+                            commentAuthorName: comment.authorName,
+                            reportedByUid: currentUid,
+                          );
+                          if (context.mounted) {
+                            UIHelpers.showSnackBar(
+                              context,
+                              'Comment reported to Admin.',
+                              backgroundColor: AppColors.navy,
+                            );
+                          }
+                        } catch (_) {}
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
+                        child: Text(
+                          'Report',
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.textMuted,
                           ),
                         ),

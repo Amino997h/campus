@@ -27,6 +27,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _isLoading = false;
+  bool _isGoogleLoading = false;
+
+  Future<void> _handleGoogleSignUp() async {
+    setState(() {
+      _isGoogleLoading = true;
+    });
+
+    final error = await _authRepo.signInWithGoogle();
+
+    if (!mounted) return;
+    setState(() {
+      _isGoogleLoading = false;
+    });
+
+    if (error == null) {
+      UIHelpers.showSnackBar(
+        context,
+        'Welcome to Campus!',
+        backgroundColor: AppColors.primary,
+      );
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else if (error != 'Sign in cancelled') {
+      UIHelpers.showSnackBar(
+        context,
+        error,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -416,7 +445,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 elevation: 0,
               ),
-              onPressed: _isLoading ? null : _handleSignUp,
+              onPressed: (_isLoading || _isGoogleLoading) ? null : _handleSignUp,
               child: _isLoading
                   ? const SizedBox(
                       width: 18,
@@ -432,6 +461,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
             ),
             const SizedBox(height: 20),
+
+            // Divider Or
+            Row(
+              children: [
+                const Expanded(child: Divider(color: AppColors.borderLight)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'OR',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textMuted.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ),
+                const Expanded(child: Divider(color: AppColors.borderLight)),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // Google Sign Up Button
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: AppColors.textDark,
+                padding: const EdgeInsets.symmetric(vertical: 13.0),
+                side: const BorderSide(color: AppColors.borderLight, width: 1.2),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                elevation: 0,
+              ),
+              onPressed: (_isLoading || _isGoogleLoading) ? null : _handleGoogleSignUp,
+              child: _isGoogleLoading
+                  ? SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png',
+                          width: 20,
+                          height: 20,
+                          errorBuilder: (context, error, stackTrace) => const Icon(
+                            Icons.g_mobiledata_rounded,
+                            size: 24,
+                            color: Colors.red,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Sign up with Google',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textDark,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+            const SizedBox(height: 24),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

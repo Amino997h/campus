@@ -264,4 +264,52 @@ class PostRepository {
       }
     }
   }
+
+  // الإبلاغ عن منشور
+  Future<void> reportPost({
+    required String postId,
+    required String postText,
+    required String postAuthorUid,
+    required String postAuthorName,
+    required String reportedByUid,
+    String reason = 'Inappropriate content / Violation',
+  }) async {
+    await _firestore.collection('reports').add({
+      'type': 'post',
+      'targetId': postId,
+      'postId': postId,
+      'content': postText,
+      'authorUid': postAuthorUid,
+      'authorName': postAuthorName,
+      'reportedByUid': reportedByUid,
+      'reason': reason,
+      'status': 'pending',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  // الإبلاغ عن تعليق
+  Future<void> reportComment({
+    required String postId,
+    required String commentId,
+    required String commentText,
+    required String commentAuthorUid,
+    required String commentAuthorName,
+    required String reportedByUid,
+    String reason = 'Inappropriate comment',
+  }) async {
+    await _firestore.collection('reports').add({
+      'type': 'comment',
+      'targetId': commentId,
+      'postId': postId,
+      'commentId': commentId,
+      'content': commentText,
+      'authorUid': commentAuthorUid,
+      'authorName': commentAuthorName,
+      'reportedByUid': reportedByUid,
+      'reason': reason,
+      'status': 'pending',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
 }

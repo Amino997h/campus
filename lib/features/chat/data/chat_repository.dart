@@ -2,20 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/chat_message_model.dart';
 import '../models/chat_conversation_model.dart';
-import '../../notifications/data/local_notification_service.dart';
 
 class ChatRepository {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
-  final LocalNotificationService _notifService;
 
   ChatRepository({
     FirebaseFirestore? firestore,
     FirebaseAuth? auth,
-    LocalNotificationService? notifService,
   })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _auth = auth ?? FirebaseAuth.instance,
-        _notifService = notifService ?? LocalNotificationService();
+        _auth = auth ?? FirebaseAuth.instance;
 
   // إنشاء أو استرجاع محادثة بين مستخدمين
   static String getConversationId(String uid1, String uid2) {
@@ -28,6 +24,21 @@ class ChatRepository {
     required String currentUid,
     required String recipientUid,
   }) async {
+    // 1. أولاً: البحث في المحادثات الحالية عما إذا كانت هناك محادثة سابقة تضم هذين الطرفين
+    // سواء تم إنشاؤها بالمعرّف الموحد أو بأي معرف عشوائي سابق في Firestore
+    final existingQuery = await _firestore
+        .collection('chats')
+        .where('participants', arrayContains: currentUid)
+        .get();
+
+    for (final doc in existingQuery.docs) {
+      final participants = List<String>.from(doc.data()['participants'] ?? []);
+      if (participants.contains(recipientUid)) {
+        return doc.id; // إرجاع المحادثة القائمة فوراً لمنع التكرار
+      }
+    }
+
+    // 2. إذا لم تكن هناك محادثة سابقة، ننشئها باستخدام المعرّف الموحد
     final chatId = getConversationId(currentUid, recipientUid);
     final chatDoc = await _firestore.collection('chats').doc(chatId).get();
     if (!chatDoc.exists) {
@@ -42,15 +53,37 @@ class ChatRepository {
     return chatId;
   }
 
-  // جلب تدفق المحادثات للمستخدم الحالي
+  // جلب تدفق المحادثات للمستخدم الحالي مع دمج وتصفية أي محادثات مكررة تلقائياً
   Stream<List<ChatConversationModel>> getUserChatsStream(String currentUid) {
     return _firestore
         .collection('chats')
         .where('participants', arrayContains: currentUid)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => ChatConversationModel.fromFirestore(doc))
-            .toList());
+        .map((snapshot) {
+      final list = snapshot.docs
+          .map((doc) => ChatConversationModel.fromFirestore(doc))
+          .toList();
+
+      // دمج وتصفية التكرار: إذا كان هناك أكثر من محادثة لنفس الشخص، نحتفظ فقط بالأحدث
+      final Map<String, ChatConversationModel> uniqueChatsByPerson = {};
+      for (final chat in list) {
+        final otherUid = chat.getOtherUid(currentUid);
+        if (otherUid.isEmpty) continue;
+
+        if (!uniqueChatsByPerson.containsKey(otherUid)) {
+          uniqueChatsByPerson[otherUid] = chat;
+        } else {
+          final existing = uniqueChatsByPerson[otherUid]!;
+          final existingTime = existing.lastMessageTime ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final chatTime = chat.lastMessageTime ?? DateTime.fromMillisecondsSinceEpoch(0);
+          if (chatTime.isAfter(existingTime)) {
+            uniqueChatsByPerson[otherUid] = chat;
+          }
+        }
+      }
+
+      return uniqueChatsByPerson.values.toList();
+    });
   }
 
   // فحص وجود رسائل غير مقروءة للمستخدم كـ Stream
@@ -120,14 +153,6 @@ class ChatRepository {
       'participants': [senderUid, recipientUid],
       'unreadBy': recipientUid,
     }, SetOptions(merge: true));
-
-    // إرسال تنبيه محلي للهاتف فقط للمستلم، بدون إضافته لمجموعة notifications العامة
-    await _notifService.showNotification(
-      id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-      title: 'New message from $senderName',
-      body: messageSnippet,
-      payload: 'chat:$chatId',
-    );
   }
 
   // تعليم المحادثة كمقروءة للمستخدم الحالي

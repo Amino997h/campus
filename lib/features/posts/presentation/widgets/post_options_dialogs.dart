@@ -56,13 +56,24 @@ class PostOptionsDialogs {
                 ListTile(
                   leading: Icon(Icons.report_outlined, color: AppColors.navy),
                   title: const Text('Report Post', style: TextStyle(color: AppColors.textDark)),
-                  onTap: () {
+                  onTap: () async {
                     Navigator.pop(ctx);
-                    UIHelpers.showSnackBar(
-                      context,
-                      'Post reported for review.',
-                      backgroundColor: AppColors.navy,
-                    );
+                    try {
+                      await postRepo.reportPost(
+                        postId: post.id,
+                        postText: post.content,
+                        postAuthorUid: post.authorUid,
+                        postAuthorName: post.authorName,
+                        reportedByUid: currentUid,
+                      );
+                      if (context.mounted) {
+                        UIHelpers.showSnackBar(
+                          context,
+                          'Post reported to Admin for review.',
+                          backgroundColor: AppColors.navy,
+                        );
+                      }
+                    } catch (_) {}
                   },
                 ),
               ],

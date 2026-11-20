@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/notification_model.dart';
-import 'local_notification_service.dart';
 
 class NotificationRepository {
   final FirebaseFirestore _firestore;
-  final LocalNotificationService _notifService;
 
   NotificationRepository({
     FirebaseFirestore? firestore,
-    LocalNotificationService? notifService,
-  })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _notifService = notifService ?? LocalNotificationService();
+  })  : _firestore = firestore ?? FirebaseFirestore.instance;
 
   // جلب تدفق إشعارات المستخدم
   Stream<List<NotificationModel>> getMyNotificationsStream(String uid) {
@@ -40,13 +36,6 @@ class NotificationRepository {
       'unread': true,
       'createdAt': FieldValue.serverTimestamp(),
     });
-
-    await _notifService.showNotification(
-      id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-      title: 'Campus',
-      body: '$title: $subtitle',
-      payload: '$type:$relatedId',
-    );
   }
 
   // فحص وجود إشعارات غير مقروءة للمستخدم كـ Stream
